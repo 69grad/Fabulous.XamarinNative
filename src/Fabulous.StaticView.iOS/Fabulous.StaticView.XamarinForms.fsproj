@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Fabulous.StaticView.XamarinForms</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Description>F# Functional App Dev Framework - Elmish bindings for XAML Xamarin.Forms</Description>
+    <PackageTags>LiveUpdate;Hot reload</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ElmishCmd.fs" />
+    <Compile Include="ElmishProgram.fs" />
+    <Compile Include="StaticViewBinding.fs" />
+    <Compile Include="StaticViewModel.fs" />
+    <Compile Include="StaticViewNav.fs" />
+    <Compile Include="StaticViewProgram.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.848062" />
+    <PackageReference Include="FSharp.Core" />
+  </ItemGroup>
+</Project>
