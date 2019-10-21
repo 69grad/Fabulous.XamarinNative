@@ -15,18 +15,14 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     </ItemGroup>
 
-
-
     <ItemGroup>
       <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
         <HintPath>..\..\..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\13.4.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
       </Reference>
     </ItemGroup>
 
-
-
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\src\Fabulous.StaticView.iOS\Fabulous.StaticView.iOS.fsproj" />
+      <ProjectReference Include="..\..\..\src\Fabulous.StaticView.iOS\Fabulous.StaticView.iOS.fsproj" />
     </ItemGroup>
 
 </Project>
