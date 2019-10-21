@@ -2,20 +2,50 @@
 namespace Fabulous.StaticView
 
 open Fabulous.Core
+open FabulousStaticViewTest
 open System
 open System.Diagnostics
-open Xamarin.Forms
+open ViewHelpers
+open UIKit
 
 [<RequireQualifiedAccess>]
 module StaticView =
 
-    let internal setBindingContexts (bindings: ViewBindings<'model, 'msg>) (viewModel: StaticViewModel<'model, 'msg>) = 
-        for (bindingName, binding) in bindings do 
-            match binding with 
-            | BindSubModel (ViewSubModel (initf, _, _, _, _)) -> 
-                let subModel = viewModel.[bindingName]
-                initf subModel
-            | _ -> ()
+//    let internal setBindingContexts (bindings: ViewBindings<'model, 'msg>) (viewModel: StaticViewModel<'model, 'msg>) =
+//        for (bindingName, binding) in bindings do
+//            match binding with
+//            | BindSubModel (ViewSubModel (initf, _, _, _, _)) ->
+//                let subModel = viewModel.[bindingName]
+//                initf subModel
+//            | _ -> ()
+
+    let internal setBindings (bindings: ViewBindings<'model, 'msg>) viewController updatedModel dispatch =
+        for (bindingName, binding) in bindings do
+            match binding with
+                | Bind getter ->
+                    let value = getter updatedModel
+                    ViewHelpers.bindLabelText viewController bindingName value
+                | BindOneWayToSource setter -> ()
+                | BindTwoWay (getter,setter) -> ()
+                | BindTwoWayValidation (getter,setter) -> ()
+                | BindCmd (exec, canExec) ->
+                    let msg = exec viewController updatedModel
+                    ViewHelpers.bindButtonAction viewController bindingName dispatch msg
+                | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
+                | BindMap (getter,mapper) -> ()
+
+    let internal updateBindings (bindings: ViewBindings<'model, 'msg>) viewController updatedModel dispatch =
+        for (bindingName, binding) in bindings do
+            match binding with
+                | Bind getter ->
+                    let value = getter updatedModel
+                    ViewHelpers.bindLabelText viewController bindingName value
+                | BindOneWayToSource setter -> ()
+                | BindTwoWay (getter,setter) -> ()
+                | BindTwoWayValidation (getter,setter) -> ()
+                | BindCmd (exec, canExec) -> ()
+                | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
+                | BindMap (getter,mapper) -> ()
 
     /// Starts the Elmish dispatch loop for the page with the given Elmish program
     type StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, _>)  = 
@@ -32,7 +62,7 @@ module StaticView =
         do Debug.WriteLine "run: computing static components of view"
 
         // Extract the static content from the view
-        let (mainPage: Page, bindings) = program.view ()
+        let (mainViewController: UIViewController, bindings) = program.view ()
 
         // Start Elmish dispatch loop  
         let rec processMsg msg = 
@@ -56,17 +86,22 @@ module StaticView =
 
                 // Construct the binding context for the view model
                 let viewModel = StaticViewModel (updatedModel, dispatch, bindings, program.debug)
-                setBindingContexts bindings viewModel
-                mainPage.BindingContext <- box viewModel
-                lastViewData <- Some (mainPage, bindings, viewModel)
+                setBindings bindings mainViewController updatedModel dispatch
+                lastViewData <- Some (mainViewController, bindings, viewModel)
+
+//                setBindingContexts bindings viewModel
+//                mainPage.BindingContext <- box viewModel
+//                lastViewData <- Some (mainPage, bindings, viewModel)
 
             | Some (page, bindings, viewModel)  ->
                 viewModel.UpdateModel updatedModel
+                updateBindings bindings mainViewController updatedModel dispatch
                 lastViewData <- Some (page, bindings, viewModel)
                       
         do 
            // Set up the global dispatch function
-           ProgramDispatch<'msg>.SetDispatchThunk (fun msg -> Device.BeginInvokeOnMainThread(fun () -> processMsg msg))
+           //ProgramDispatch<'msg>.SetDispatchThunk (fun msg -> Device.BeginInvokeOnMainThread(fun () -> processMsg msg))
+           ProgramDispatch<'msg>.SetDispatchThunk (fun msg -> processMsg msg)
 
            Debug.WriteLine "updating the initial view"
 
@@ -76,7 +111,7 @@ module StaticView =
            for sub in (program.subscribe initialModel @ cmd) do
                 sub dispatch
 
-        member __.InitialMainPage = mainPage
+        member __.InitialMainPage = mainViewController
 
         member __.CurrentModel = lastModel 
 
@@ -103,7 +138,7 @@ module Program =
               let page, contents, navMap = program.view ()
               Debug.WriteLine "setting global navigation map"
               // TODO: modify the Elmish framework we use to remove this global state and pass it into all commands??
-              Nav.globalNavMap <- (navMap |> List.map (fun (tg, page) -> ((tg :> System.IComparable), page)) |> Map.ofList)
+              //Nav.globalNavMap <- (navMap |> List.map (fun (tg, page) -> ((tg :> System.IComparable), page)) |> Map.ofList)
               page, contents  )}
 
     let runWithStaticView (program: Program<'model, 'msg, _>) = 
@@ -114,8 +149,8 @@ module Program =
               onError = program.onError
               debug = program.debug
               view = (fun () -> 
-                  let page, bindings = program.view ()
-                  ((page :> Page), bindings)) }
+                  let viewController, bindings = program.view ()
+                  ((viewController :> UIViewController), bindings)) }
         StaticView.StaticViewProgramRunner(program)
 
     /// Trace all the updates to the console

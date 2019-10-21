@@ -7,12 +7,16 @@ open System.ComponentModel
 open System.Diagnostics
 
 /// The internal representation of a binding in the ViewModel for static Xaml
+
+type Command = { execute: Action<obj>; canExecute: Func<obj, bool> }
+
 type internal PropertyBinding<'model, 'msg> =
     | Get of Getter<'model>
     | Set of Setter<'model, 'msg>
     | GetSet of Getter<'model> * Setter<'model, 'msg>
     | GetSetValidate of Getter<'model> * ValidSetter<'model, 'msg>
-    | Cmd of Xamarin.Forms.Command
+    //| Cmd of Xamarin.Forms.Command
+    | Cmd of Command
     | SubModel of ('model -> obj) * (obj -> 'msg) * StaticViewModel<obj, obj>
     | Map of Getter<'model> * (obj -> obj)
 
@@ -40,7 +44,7 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
         p |> List.iter notifyPropertyChanged
         let raiseCanExecuteChanged accessor =
             match accessor with
-            | Cmd c -> c.ChangeCanExecute ()
+            //| Cmd c -> c.ChangeCanExecute ()
             | _ -> ()
         props |> List.ofSeq |> List.iter (fun kvp -> raiseCanExecuteChanged kvp.Value)    
 
@@ -60,8 +64,8 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
             Func<obj, bool>(fun cmdParameter -> 
                 if debug then Trace.WriteLine (sprintf "view: checking if cmd %s can execute" name)
                 canExec cmdParameter model)
-        Xamarin.Forms.Command (execute, canExecute)
-
+        //Xamarin.Forms.Command (execute, canExecute)
+        { execute = execute; canExecute = canExecute }
 
     /// Convert sub-models on receipt of initial bindings
     let convert (name, binding) =
