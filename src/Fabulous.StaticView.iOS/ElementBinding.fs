@@ -4,7 +4,7 @@ open System.Reflection
 open UIKit
 
 [<AutoOpen>]
-module ViewHelpers =
+module ElementBinding =
 
     let private getUiElement controller element =
         let propInfo = controller.GetType().GetProperty(element, BindingFlags.NonPublic ||| BindingFlags.Instance)

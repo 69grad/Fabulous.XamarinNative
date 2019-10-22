@@ -2,50 +2,12 @@
 namespace Fabulous.StaticView
 
 open Fabulous.Core
-open FabulousStaticViewTest
 open System
 open System.Diagnostics
-open ViewHelpers
 open UIKit
 
 [<RequireQualifiedAccess>]
 module StaticView =
-
-//    let internal setBindingContexts (bindings: ViewBindings<'model, 'msg>) (viewModel: StaticViewModel<'model, 'msg>) =
-//        for (bindingName, binding) in bindings do
-//            match binding with
-//            | BindSubModel (ViewSubModel (initf, _, _, _, _)) ->
-//                let subModel = viewModel.[bindingName]
-//                initf subModel
-//            | _ -> ()
-
-    let internal setBindings (bindings: ViewBindings<'model, 'msg>) viewController updatedModel dispatch =
-        for (bindingName, binding) in bindings do
-            match binding with
-                | Bind getter ->
-                    let value = getter updatedModel
-                    ViewHelpers.bind viewController bindingName value
-                | BindOneWayToSource setter -> ()
-                | BindTwoWay (getter,setter) -> ()
-                | BindTwoWayValidation (getter,setter) -> ()
-                | BindCmd (exec, canExec) ->
-                    let msg = exec viewController updatedModel
-                    ViewHelpers.bindCmd viewController bindingName dispatch msg
-                | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
-                | BindMap (getter,mapper) -> ()
-
-    let internal updateBindings (bindings: ViewBindings<'model, 'msg>) viewController updatedModel dispatch =
-        for (bindingName, binding) in bindings do
-            match binding with
-                | Bind getter ->
-                    let value = getter updatedModel
-                    ViewHelpers.bind viewController bindingName value
-                | BindOneWayToSource setter -> ()
-                | BindTwoWay (getter,setter) -> ()
-                | BindTwoWayValidation (getter,setter) -> ()
-                | BindCmd (exec, canExec) -> ()
-                | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
-                | BindMap (getter,mapper) -> ()
 
     /// Starts the Elmish dispatch loop for the page with the given Elmish program
     type StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, _>)  = 
@@ -85,17 +47,12 @@ module StaticView =
             | None -> 
 
                 // Construct the binding context for the view model
-                let viewModel = StaticViewModel (updatedModel, dispatch, bindings, program.debug)
-                setBindings bindings mainViewController updatedModel dispatch
+                let viewModel = StaticViewModel (updatedModel, dispatch, bindings, mainViewController, program.debug)
+                viewModel.SetBindings bindings mainViewController updatedModel dispatch
                 lastViewData <- Some (mainViewController, bindings, viewModel)
 
-//                setBindingContexts bindings viewModel
-//                mainPage.BindingContext <- box viewModel
-//                lastViewData <- Some (mainPage, bindings, viewModel)
-
             | Some (page, bindings, viewModel)  ->
-                viewModel.UpdateModel updatedModel
-                updateBindings bindings mainViewController updatedModel dispatch
+                viewModel.UpdateModel bindings updatedModel
                 lastViewData <- Some (page, bindings, viewModel)
                       
         do 

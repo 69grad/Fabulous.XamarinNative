@@ -8,7 +8,7 @@
     <PackageTags>LiveUpdate;Hot reload</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ViewHelpers.fs" />
+    <Compile Include="ElementBinding.fs" />
     <Compile Include="ElmishCmd.fs" />
     <Compile Include="ElmishProgram.fs" />
     <Compile Include="StaticViewBinding.fs" />
