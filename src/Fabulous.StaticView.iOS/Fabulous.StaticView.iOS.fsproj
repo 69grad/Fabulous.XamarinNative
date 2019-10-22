@@ -8,6 +8,7 @@
     <PackageTags>LiveUpdate;Hot reload</PackageTags>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="UIFabulousViewController.fs" />
     <Compile Include="ElmishCmd.fs" />
     <Compile Include="ElmishProgram.fs" />
     <Compile Include="StaticViewBinding.fs" />

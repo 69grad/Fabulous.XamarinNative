@@ -2,6 +2,7 @@
 
 open Fabulous.Core
 open Fabulous.StaticView
+open StaticViewController
 open UIKit
 
 type Model =
@@ -18,9 +19,7 @@ type Msg =
 
 type Element = {name:string}
 
-type StaticViewController (controller: UIViewController) =
-
-    let mutable Controller: UIViewController = controller
+type StaticViewCounterApp (controller : UIViewController) =
 
     let initModel () = { Count = 0; Step = 3; Name = "FSharp" }
 
@@ -36,7 +35,7 @@ type StaticViewController (controller: UIViewController) =
 
     let view () =
 
-        Controller, [
+        controller, [
             "_incrementButton" |> Binding.msg Increment
             "_decrementButton" |> Binding.msg Decrement
             "_resetButton" |> Binding.msg Reset
@@ -51,3 +50,5 @@ type StaticViewController (controller: UIViewController) =
         Program.mkSimple init update view
         |> Program.withConsoleTrace
         |> Program.runWithStaticView
+
+    interface IStaticViewController

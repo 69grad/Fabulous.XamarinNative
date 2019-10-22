@@ -137,6 +137,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Fabulous.StaticView.iOS\Fabulous.StaticView.iOS.fsproj">
+      <Project>{1a56f9bf-f202-442e-97d6-ec89b6275d6b}</Project>
+      <Name>Fabulous.StaticView.iOS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StaticViewCounterApp\StaticViewCounterApp.fsproj">
       <Project>{98C6D027-3830-44FF-BE63-C13611B51ADF}</Project>
       <Name>StaticViewCounterApp</Name>
