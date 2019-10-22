@@ -24,13 +24,13 @@ module StaticView =
             match binding with
                 | Bind getter ->
                     let value = getter updatedModel
-                    ViewHelpers.bindLabelText viewController bindingName value
+                    ViewHelpers.bind viewController bindingName value
                 | BindOneWayToSource setter -> ()
                 | BindTwoWay (getter,setter) -> ()
                 | BindTwoWayValidation (getter,setter) -> ()
                 | BindCmd (exec, canExec) ->
                     let msg = exec viewController updatedModel
-                    ViewHelpers.bindButtonAction viewController bindingName dispatch msg
+                    ViewHelpers.bindCmd viewController bindingName dispatch msg
                 | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
                 | BindMap (getter,mapper) -> ()
 
@@ -39,7 +39,7 @@ module StaticView =
             match binding with
                 | Bind getter ->
                     let value = getter updatedModel
-                    ViewHelpers.bindLabelText viewController bindingName value
+                    ViewHelpers.bind viewController bindingName value
                 | BindOneWayToSource setter -> ()
                 | BindTwoWay (getter,setter) -> ()
                 | BindTwoWayValidation (getter,setter) -> ()

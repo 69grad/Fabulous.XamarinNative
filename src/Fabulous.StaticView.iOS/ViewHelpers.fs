@@ -6,14 +6,18 @@ open UIKit
 [<AutoOpen>]
 module ViewHelpers =
 
-    let getUiElement controller element =
+    let private getUiElement controller element =
         let propInfo = controller.GetType().GetProperty(element, BindingFlags.NonPublic ||| BindingFlags.Instance)
         propInfo.GetValue(controller)
 
-    let bindLabelText controller element value =
-        let label = getUiElement controller element :?> UILabel
-        label.Text <- value.ToString()
+    let bind controller element value =
+        let element = getUiElement controller element
+        match element with
+        | :? UILabel as label -> label.Text <- value.ToString()
+        | _ -> ()
 
-    let bindButtonAction controller element dispatch msg =
-        let button = getUiElement controller element :?> UIButton
-        button.TouchDown.Add(fun args -> dispatch msg)
+    let bindCmd controller element dispatch msg =
+        let element = getUiElement controller element
+        match element with
+        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
+        | _ -> ()
