@@ -7,13 +7,15 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace FabulousStaticViewTest.iOS
 {
     [Register ("ViewController")]
     partial class ViewController
     {
+        [Outlet]
+        UIKit.UITextField _twoWayOneTextField { get; set; }
+
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton _decrementButton { get; set; }
@@ -25,6 +27,14 @@ namespace FabulousStaticViewTest.iOS
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton _resetButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField _twoWayFirstTextField { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField _twoWaySecondTextField { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -45,6 +55,16 @@ namespace FabulousStaticViewTest.iOS
             if (_resetButton != null) {
                 _resetButton.Dispose ();
                 _resetButton = null;
+            }
+
+            if (_twoWayFirstTextField != null) {
+                _twoWayFirstTextField.Dispose ();
+                _twoWayFirstTextField = null;
+            }
+
+            if (_twoWaySecondTextField != null) {
+                _twoWaySecondTextField.Dispose ();
+                _twoWaySecondTextField = null;
             }
 
             if (_valueLabel != null) {

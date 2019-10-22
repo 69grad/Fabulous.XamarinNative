@@ -6,13 +6,15 @@ open UIKit
 
 type Model =
   { Count : int
-    Step : int }
+    Step : int
+    Name : string }
 
 type Msg =
     | Increment
     | Decrement
     | Reset
     | SetStep of int
+    | SetName of string
 
 type Element = {name:string}
 
@@ -20,7 +22,7 @@ type StaticViewController (controller: UIViewController) =
 
     let mutable Controller: UIViewController = controller
 
-    let initModel () = { Count = 0; Step = 3 }
+    let initModel () = { Count = 0; Step = 3; Name = "Klaus" }
 
     let init () = initModel ()
 
@@ -30,6 +32,7 @@ type StaticViewController (controller: UIViewController) =
         | Decrement -> { model with Count = model.Count - model.Step }
         | Reset -> init ()
         | SetStep n -> { model with Step = n }
+        | SetName n -> { model with Name = n }
 
     let view () =
 
@@ -38,6 +41,8 @@ type StaticViewController (controller: UIViewController) =
             "_decrementButton" |> Binding.msg Decrement
             "_resetButton" |> Binding.msg Reset
             "_valueLabel" |> Binding.oneWay (fun m -> m.Count)
+            "_twoWayFirstTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
+            "_twoWaySecondTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
         ]
 
     let runner =

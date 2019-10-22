@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
@@ -19,23 +19,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qag-ih-79j">
-                                <rect key="frame" x="172.5" y="80" width="69" height="30"/>
+                                <rect key="frame" x="172.5" y="56" width="69" height="30"/>
                                 <state key="normal" title="Increment"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DN-O4-y0b">
-                                <rect key="frame" x="186" y="52" width="42" height="20.5"/>
+                                <rect key="frame" x="186" y="28" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="221">
-                                <rect key="frame" x="169" y="118" width="76" height="30"/>
+                                <rect key="frame" x="169" y="94" width="76" height="30"/>
                                 <state key="normal" title="Decrement"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="437">
                                 <rect key="frame" x="187.5" y="846" width="39" height="30"/>
                                 <state key="normal" title="Reset"/>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dmT-Ic-Zks">
+                                <rect key="frame" x="159" y="238" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MXc-dB-8cc">
+                                <rect key="frame" x="159" y="196" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -53,12 +65,14 @@
                         <outlet property="_decrementButton" destination="221" id="name-outlet-221"/>
                         <outlet property="_incrementButton" destination="Qag-ih-79j" id="name-outlet-Qag-ih-79j"/>
                         <outlet property="_resetButton" destination="437" id="name-outlet-437"/>
+                        <outlet property="_twoWayFirstTextField" destination="MXc-dB-8cc" id="name-outlet-MXc-dB-8cc"/>
                         <outlet property="_valueLabel" destination="3DN-O4-y0b" id="name-outlet-3DN-O4-y0b"/>
+                        <outlet property="_twoWaySecondTextField" destination="dmT-Ic-Zks" id="name-outlet-dmT-Ic-Zks"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="553.6232" y="-60.267859999999999"/>
+            <point key="canvasLocation" x="553.6232" y="-60.26786"/>
         </scene>
     </scenes>
 </document>

@@ -1,11 +1,12 @@
 ﻿// Copyright 2018 Fabulous contributors. See LICENSE.md for license.
 namespace Fabulous.StaticView
 
-open FabulousStaticViewTest
 open System
 open System.Collections.Generic
 open System.ComponentModel
 open System.Diagnostics
+open System.Reflection
+open UIKit
 
 /// The internal representation of a binding in the ViewModel for static Xaml
 
@@ -35,18 +36,18 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
 
     /// Convert a command to a XF command
     let toCommand name (exec, canExec) =
-        let execute = 
-            Action<obj> (fun cmdParameter -> 
+        let execute =
+            Action<obj> (fun cmdParameter ->
                 if debug then Trace.WriteLine (sprintf "view: execute cmd %s" name)
-                let msg = 
-                   try exec cmdParameter model 
-                   with exn -> 
+                let msg =
+                   try exec cmdParameter model
+                   with exn ->
                        if debug then Trace.WriteLine (sprintf "view: execute cmd %s raised exception:\n%s" name (exn.ToString()))
                        reraise()
                 dispatch msg)
 
-        let canExecute = 
-            Func<obj, bool>(fun cmdParameter -> 
+        let canExecute =
+            Func<obj, bool>(fun cmdParameter ->
                 if debug then Trace.WriteLine (sprintf "view: checking if cmd %s can execute" name)
                 canExec cmdParameter model)
         //Xamarin.Forms.Command (execute, canExecute)
@@ -62,6 +63,32 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
         | BindCmd (exec, canExec) -> name, Cmd (toCommand name (exec, canExec))
         //| BindSubModel (ViewSubModel (_, _subName, getter, toMsg, propMap)) -> name, // SubModel (getter, toMsg, StaticViewModel<obj, obj>(getter model, toMsg >> dispatch, propMap, debug))
         | BindMap (getter, mapper) -> name, Map (getter, mapper)
+
+    let getUiElement controller (elementName:string) =
+        let propInfo = controller.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
+        propInfo.GetValue(controller)
+
+    let bind controller (elementName:string) (value:obj) =
+        let element = getUiElement controller elementName
+        match element with
+        | :? UILabel as label -> label.Text <- value.ToString()
+        | :? UITextField as textField -> textField.Text <- value.ToString()
+        | _ -> ()
+
+    let bindCmd controller (elementName:string) (dispatch:'msg -> unit) (msg:'msg) =
+        let element = getUiElement controller elementName
+        match element with
+        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
+        | _ -> ()
+
+    let bindValueChanged controller (elementName:string) (dispatch:'msg -> unit) (setter:Setter<'model,'msg>) =
+        let element = getUiElement controller elementName
+        match element with
+        | :? UITextField as textField ->
+            textField.AddTarget(EventHandler (fun sender event ->
+                dispatch <| setter textField.Text model
+                ), UIControlEvent.EditingChanged)
+        | _ -> ()
 
     do propMap |> List.map convert |> List.iter props.Add
         
@@ -92,22 +119,26 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
                     let value = getter other
                     let old = getter model
                     if value <> old then
-                        ElementBinding.bind viewController bindingName value
+                        bind viewController bindingName value
                 | _ -> ()
 
         model <- other
 
-    member __.SetBindings (bindings: ViewBindings<'model, 'msg>) viewController updatedModel dispatch =
+    member __.SetBindings (bindings: ViewBindings<'model, 'msg>) viewController (updatedModel:'model) (dispatch:'msg -> unit) =
         for (bindingName, binding) in bindings do
             match binding with
                 | Bind getter ->
                     let value = getter updatedModel
-                    ElementBinding.bind viewController bindingName value
-                | BindOneWayToSource setter -> ()
-                | BindTwoWay (getter,setter) -> ()
+                    bind viewController bindingName value
+                | BindOneWayToSource setter ->
+                    bindValueChanged viewController bindingName dispatch setter
+                | BindTwoWay (getter,setter) ->
+                    let value = getter updatedModel
+                    bind viewController bindingName value
+                    bindValueChanged viewController bindingName dispatch setter
                 | BindTwoWayValidation (getter,setter) -> ()
                 | BindCmd (exec, canExec) ->
-                    let msg = exec viewController updatedModel
-                    ElementBinding.bindCmd viewController bindingName dispatch msg
+                    let msg = exec viewController model
+                    bindCmd viewController bindingName dispatch msg
                 | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
                 | BindMap (getter,mapper) -> ()
