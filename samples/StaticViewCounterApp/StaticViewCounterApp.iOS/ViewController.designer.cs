@@ -30,6 +30,14 @@ namespace FabulousStaticViewTest.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UISlider _stepSizeSlider { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel _stepSizeValueLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField _twoWayFirstTextField { get; set; }
 
         [Outlet]
@@ -55,6 +63,16 @@ namespace FabulousStaticViewTest.iOS
             if (_resetButton != null) {
                 _resetButton.Dispose ();
                 _resetButton = null;
+            }
+
+            if (_stepSizeSlider != null) {
+                _stepSizeSlider.Dispose ();
+                _stepSizeSlider = null;
+            }
+
+            if (_stepSizeValueLabel != null) {
+                _stepSizeValueLabel.Dispose ();
+                _stepSizeValueLabel = null;
             }
 
             if (_twoWayFirstTextField != null) {

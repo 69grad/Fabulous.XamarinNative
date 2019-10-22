@@ -86,8 +86,13 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
         match element with
         | :? UITextField as textField ->
             textField.AddTarget(EventHandler (fun sender event ->
-                dispatch <| setter textField.Text model
-                ), UIControlEvent.EditingChanged)
+                dispatch <| setter textField.Text model)
+            , UIControlEvent.EditingChanged)
+        | :? UISlider as slider ->
+            slider.AddTarget(EventHandler (fun sender event ->
+                let value = int(slider.Value + 0.5f)
+                dispatch <| setter value model)
+            , UIControlEvent.ValueChanged)
         | _ -> ()
 
     do propMap |> List.map convert |> List.iter props.Add

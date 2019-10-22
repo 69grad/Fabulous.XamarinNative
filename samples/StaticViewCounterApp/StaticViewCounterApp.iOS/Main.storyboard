@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qag-ih-79j">
-                                <rect key="frame" x="172.5" y="56" width="69" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qag-ih-79j">
+                                <rect key="frame" x="171" y="176" width="69" height="30"/>
                                 <state key="normal" title="Increment"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DN-O4-y0b">
@@ -28,36 +28,58 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="221">
-                                <rect key="frame" x="169" y="94" width="76" height="30"/>
-                                <state key="normal" title="Decrement"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="437">
                                 <rect key="frame" x="187.5" y="846" width="39" height="30"/>
                                 <state key="normal" title="Reset"/>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dmT-Ic-Zks">
-                                <rect key="frame" x="159" y="238" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MXc-dB-8cc">
+                                <rect key="frame" x="107" y="285.5" width="200" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Atf-FX-eig"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MXc-dB-8cc">
-                                <rect key="frame" x="159" y="196" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dmT-Ic-Zks">
+                                <rect key="frame" x="107" y="327.5" width="200" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="676">
+                                <rect key="frame" x="105" y="54" width="204" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="4Ys-Mk-WD1"/>
+                                </constraints>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="697">
+                                <rect key="frame" x="186" y="92" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="221">
+                                <rect key="frame" x="169" y="189.5" width="76" height="30"/>
+                                <state key="normal" title="Decrement"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="437" secondAttribute="bottom" constant="20" id="Bq1-yK-n4D"/>
+                            <constraint firstItem="dmT-Ic-Zks" firstAttribute="top" secondItem="MXc-dB-8cc" secondAttribute="bottom" constant="8" id="IPB-1b-7Ww"/>
+                            <constraint firstItem="221" firstAttribute="top" secondItem="Qag-ih-79j" secondAttribute="bottom" constant="8" id="Jmp-bW-gNw"/>
                             <constraint firstItem="437" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MNB-SO-9gp"/>
+                            <constraint firstItem="3DN-O4-y0b" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="MNy-E3-gZW"/>
                             <constraint firstItem="3DN-O4-y0b" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OLx-lM-INQ"/>
                             <constraint firstItem="Qag-ih-79j" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PkT-FW-AP1"/>
-                            <constraint firstItem="Qag-ih-79j" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="36" id="hNk-74-MUo"/>
-                            <constraint firstItem="221" firstAttribute="top" secondItem="Qag-ih-79j" secondAttribute="bottom" constant="8" id="k57-x2-jdB"/>
-                            <constraint firstItem="3DN-O4-y0b" firstAttribute="top" secondItem="Qag-ih-79j" secondAttribute="bottom" constant="-58" id="wwN-VJ-2Xf"/>
+                            <constraint firstItem="dmT-Ic-Zks" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YZS-fn-y8h"/>
+                            <constraint firstItem="676" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="axo-c3-Fia"/>
+                            <constraint firstItem="697" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hvq-fu-Y9j"/>
+                            <constraint firstItem="697" firstAttribute="top" secondItem="676" secondAttribute="bottom" constant="8" id="iXQ-Mf-JG6"/>
+                            <constraint firstItem="Qag-ih-79j" firstAttribute="top" secondItem="697" secondAttribute="bottom" constant="39" id="jro-W8-nAU"/>
+                            <constraint firstItem="MXc-dB-8cc" firstAttribute="top" secondItem="221" secondAttribute="bottom" constant="66" id="kuE-AV-e6s"/>
+                            <constraint firstItem="MXc-dB-8cc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pH1-Mg-wwW"/>
+                            <constraint firstItem="dmT-Ic-Zks" firstAttribute="width" secondItem="MXc-dB-8cc" secondAttribute="width" id="vsw-zv-Sqy"/>
+                            <constraint firstItem="676" firstAttribute="top" secondItem="3DN-O4-y0b" secondAttribute="bottom" constant="5.5" id="xt2-qP-K6g"/>
                             <constraint firstItem="221" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zKR-hu-Lkj"/>
                         </constraints>
                     </view>
@@ -65,14 +87,16 @@
                         <outlet property="_decrementButton" destination="221" id="name-outlet-221"/>
                         <outlet property="_incrementButton" destination="Qag-ih-79j" id="name-outlet-Qag-ih-79j"/>
                         <outlet property="_resetButton" destination="437" id="name-outlet-437"/>
+                        <outlet property="_stepSizeSlider" destination="676" id="name-outlet-676"/>
+                        <outlet property="_stepSizeValueLabel" destination="697" id="name-outlet-697"/>
                         <outlet property="_twoWayFirstTextField" destination="MXc-dB-8cc" id="name-outlet-MXc-dB-8cc"/>
-                        <outlet property="_valueLabel" destination="3DN-O4-y0b" id="name-outlet-3DN-O4-y0b"/>
                         <outlet property="_twoWaySecondTextField" destination="dmT-Ic-Zks" id="name-outlet-dmT-Ic-Zks"/>
+                        <outlet property="_valueLabel" destination="3DN-O4-y0b" id="name-outlet-3DN-O4-y0b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="553.6232" y="-60.26786"/>
+            <point key="canvasLocation" x="553.6232" y="-60.9375"/>
         </scene>
     </scenes>
 </document>

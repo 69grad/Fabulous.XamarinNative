@@ -22,7 +22,7 @@ type StaticViewController (controller: UIViewController) =
 
     let mutable Controller: UIViewController = controller
 
-    let initModel () = { Count = 0; Step = 3; Name = "Klaus" }
+    let initModel () = { Count = 0; Step = 3; Name = "FSharp" }
 
     let init () = initModel ()
 
@@ -40,7 +40,9 @@ type StaticViewController (controller: UIViewController) =
             "_incrementButton" |> Binding.msg Increment
             "_decrementButton" |> Binding.msg Decrement
             "_resetButton" |> Binding.msg Reset
-            "_valueLabel" |> Binding.oneWay (fun m -> m.Count)
+            "_valueLabel" |> Binding.oneWay (fun m -> "Value: " + m.Count.ToString())
+            "_stepSizeValueLabel" |> Binding.oneWay (fun m -> m.Step)
+            "_stepSizeSlider" |> Binding.twoWay (fun m -> m.Step ) (fun v -> SetStep (int(v)))
             "_twoWayFirstTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
             "_twoWaySecondTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
         ]
