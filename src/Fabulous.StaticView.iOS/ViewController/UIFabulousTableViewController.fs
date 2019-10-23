@@ -11,4 +11,3 @@ type UIFabulousTableViewController<'t when 't :> IStaticViewController and 't : 
         base.ViewDidLoad()
 
         staticViewController <- Activator.CreateInstance(typeof<'t>, this) :?> 't
-

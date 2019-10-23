@@ -66,13 +66,19 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
 
     let getUiElement (viewController: UIViewController) (elementName: string) =
         let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
-        propInfo.GetValue(viewController)
+        if propInfo <> null then
+            propInfo.GetValue(viewController)
+        else
+            null
 
     let bind (viewController: UIViewController) (elementName: string) (value: obj) =
         let element = getUiElement viewController elementName
         match element with
         | :? UILabel as label -> label.Text <- value.ToString()
         | :? UITextField as textField -> textField.Text <- value.ToString()
+        | null ->
+            let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
+            propInfo.SetValue(viewController, value)
         | _ -> ()
 
     let bindCmd (viewController: UIViewController) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =

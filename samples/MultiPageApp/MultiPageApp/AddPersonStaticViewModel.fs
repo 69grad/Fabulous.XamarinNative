@@ -3,7 +3,6 @@
 open Fabulous.Core
 open Fabulous.StaticView
 open MultiPageApp
-open PeopleRepo
 open Common
 open UIKit
 
@@ -26,7 +25,8 @@ type AddPersonStaticViewModel (controller : UIViewController) =
         | SetFirstname v -> { model with NewPerson = { model.NewPerson with Firstname = v } }
         | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }
         | Save ->
-            model.NewPerson |> addPerson
+            PeopleRepo.addPerson model.NewPerson
+            SimpleMessenger.publish "Person added"
             model
 
     let view () =

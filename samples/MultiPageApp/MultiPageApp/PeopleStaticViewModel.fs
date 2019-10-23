@@ -4,57 +4,43 @@ open Fabulous.Core
 open Fabulous.StaticView
 open MultiPageApp
 open MultiPageApp.Common
-open PeopleRepo
 open UIKit
 
 type Model =
-  { People : Person[]
-    Count : int
-    Step : int
-    Name : string }
+  { People : Person[] }
 
 type Msg =
-    | Increment
-    | Decrement
     | Reset
-    | SetStep of int
-    | SetName of string
 
 type PeopleStaticViewModel (controller : UIViewController) =
 
     let initModel () = {
         People = PeopleRepo.people;
-        Count = 0;
-        Step = 3;
-        Name = "FSharp"
     }
 
     let init () = initModel ()
 
     let update msg model =
         match msg with
-        | Increment -> { model with Count = model.Count + model.Step }
-        | Decrement -> { model with Count = model.Count - model.Step }
         | Reset -> init ()
-        | SetStep n -> { model with Step = n }
-        | SetName n -> { model with Name = n }
 
     let view () =
 
         controller, [
-//            "_incrementButton" |> Binding.msg Increment
-//            "_decrementButton" |> Binding.msg Decrement
-//            "_resetButton" |> Binding.msg Reset
-//            "_valueLabel" |> Binding.oneWay (fun m -> "Value: " + m.Count.ToString())
-//            "_stepSizeValueLabel" |> Binding.oneWay (fun m -> m.Step)
-//            "_stepSizeSlider" |> Binding.twoWay (fun m -> m.Step ) (fun v -> SetStep (int(v)))
-//            "_twoWayFirstTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
-//            "_twoWaySecondTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
+            "People" |> Binding.oneWay (fun m -> m.People)
         ]
 
     let runner =
         Program.mkSimple init update view
         |> Program.withConsoleTrace
         |> Program.runWithStaticView
+
+
+    do
+        let messageReceived = System.Action<string>(fun message ->
+            runner.Dispatch Reset
+        )
+
+        SimpleMessenger.subscribe messageReceived
 
     interface IStaticViewController

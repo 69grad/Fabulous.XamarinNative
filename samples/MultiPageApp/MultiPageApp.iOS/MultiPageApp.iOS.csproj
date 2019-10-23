@@ -134,6 +134,7 @@
     <Compile Include="ViewController\AddPersonViewController.designer.cs">
       <DependentUpon>AddPersonViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewController\PeopleTableViewDataSource.cs" />
     <Compile Include="ViewController\PeopleViewController.cs" />
     <Compile Include="ViewController\PeopleViewController.designer.cs">
       <DependentUpon>PeopleViewController.cs</DependentUpon>

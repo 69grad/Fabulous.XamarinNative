@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="ElmishCmd.fs" />
     <Compile Include="ElmishProgram.fs" />
+    <Compile Include="SimpleMessenger.fs" />
     <Compile Include="StaticViewBinding.fs" />
     <Compile Include="StaticViewModel.fs" />
     <Compile Include="StaticViewProgram.fs" />

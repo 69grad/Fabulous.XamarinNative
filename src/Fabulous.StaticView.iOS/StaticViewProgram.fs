@@ -72,6 +72,8 @@ module StaticView =
 
         member __.CurrentModel = lastModel 
 
+        member __.Dispatch = dispatch
+
         /// Set the current model, e.g. on resume
         member __.SetCurrentModel(model, cmd: Cmd<_>) =
             Debug.WriteLine "updating the view after setting the model"
