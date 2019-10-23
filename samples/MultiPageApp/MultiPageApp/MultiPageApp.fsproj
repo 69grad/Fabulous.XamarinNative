@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.6.2" />
+    <PackageReference Include="Fabulous" Version="0.42.0" />
+    <PackageReference Include="Fabulous.Core" Version="0.36.0" /> <!-- workaround for VSMac bug https://github.com/mono/monodevelop/pull/5137 --> 
+  </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="Common.fs" />
+        <Compile Include="PeopleRepo.fs" />
+        <Compile Include="PeopleStaticViewModel.fs" />
+        <Compile Include="AddPersonStaticViewModel.fs" />
+        <PackageReference Include="FSharp.Core" Version="4.7.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
+        <HintPath>..\..\..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\13.4.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Fabulous.StaticView.iOS\Fabulous.StaticView.iOS.fsproj" />
+    </ItemGroup>
+
+</Project>
