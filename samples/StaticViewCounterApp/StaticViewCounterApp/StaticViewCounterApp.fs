@@ -2,7 +2,6 @@
 
 open Fabulous.Core
 open Fabulous.StaticView
-open StaticViewController
 open UIKit
 
 type Model =

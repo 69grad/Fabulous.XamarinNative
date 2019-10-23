@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Fabulous.StaticView.iOS</RootNamespace>
@@ -8,16 +8,20 @@
     <PackageTags>LiveUpdate;Hot reload</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="UIFabulousViewController.fs" />
+    <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
+      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\13.4.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewController\" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="ElmishCmd.fs" />
     <Compile Include="ElmishProgram.fs" />
     <Compile Include="StaticViewBinding.fs" />
     <Compile Include="StaticViewModel.fs" />
     <Compile Include="StaticViewProgram.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
-      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\13.4.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-    </Reference>
+    <Compile Include="ViewController\UIFabulousViewController.fs" />
+    <Compile Include="ViewController\UIFabulousTableViewController.fs" />
   </ItemGroup>
 </Project>
