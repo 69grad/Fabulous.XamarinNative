@@ -20,7 +20,7 @@
 
     <ItemGroup>
       <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
-        <HintPath>..\..\..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\13.4.0.2\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
+        <HintPath>..\..\..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\Current\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
       </Reference>
     </ItemGroup>
 
