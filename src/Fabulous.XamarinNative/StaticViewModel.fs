@@ -66,52 +66,6 @@ and [<AbstractClass>]
         //| BindSubModel (ViewSubModel (_, _subName, getter, toMsg, propMap)) -> name, // SubModel (getter, toMsg, StaticViewModel<obj, obj>(getter model, toMsg >> dispatch, propMap, debug))
         | BindMap (getter, mapper) -> name, Map (getter, mapper)
 
-// TODO
-//    let getUiElement (viewController: UIViewController) (elementName: string) =
-//        let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
-//        if propInfo <> null then
-//            propInfo.GetValue(viewController)
-//        else
-//            null
-
-// TODO
-    
-    
-//    let bind (viewController: IXamarinNativeProgramHost) (elementName: string) (value: obj) =
-//        let element = getUiElement viewController elementName
-//        match element with
-//        | :? UILabel as label -> label.Text <- value.ToString()
-//        | :? UITextField as textField -> textField.Text <- value.ToString()
-//        | null ->
-//            let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
-//            propInfo.SetValue(viewController, value)
-//        | _ -> ()
-//
-     
-//    let bindCmd (viewController: IXamarinNativeProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
-//        let element = getUiElement viewController elementName
-//        match element with
-//        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
-//        | _ -> ()
-//        ()
-
-// TODO
-//    let bindValueChanged (viewController: IXamarinNativeProgramHost) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
-//        let element = getUiElement viewController elementName
-//        match element with
-//        | :? UITextField as textField ->
-//            textField.AddTarget(EventHandler (fun sender event ->
-//                dispatch <| setter textField.Text model)
-//            , UIControlEvent.EditingChanged)
-//        | :? UISlider as slider ->
-//            slider.AddTarget(EventHandler (fun sender event ->
-//                let value = int(slider.Value + 0.5f)
-//                dispatch <| setter value model)
-//            , UIControlEvent.ValueChanged)
-//        | _ -> ()
-        
- 
-
     do propMap |> List.map convert |> List.iter props.Add
 
     // Notifies the view of validation errors
@@ -129,7 +83,7 @@ and [<AbstractClass>]
 
     abstract bind : IXamarinNativeProgramHost -> string -> obj -> unit
     abstract bindCmd : IXamarinNativeProgramHost -> string -> ('msg -> unit) -> 'msg -> unit
-    abstract bindValueChanged : IXamarinNativeProgramHost -> string -> ('msg -> unit) -> Setter<'model, 'msg> -> unit
+    abstract bindValueChanged : IXamarinNativeProgramHost -> 'model -> string -> ('msg -> unit) -> Setter<'model, 'msg> -> unit
     
     /// Used internally to update the model. Only properties that have changed are updated.
     member __.UpdateModel (bindings: ViewBindings<'model, 'msg>) (other: 'model) : unit =
@@ -157,11 +111,11 @@ and [<AbstractClass>]
                     let value = getter updatedModel
                     self.bind viewController bindingName value
                 | BindOneWayToSource setter ->
-                    self.bindValueChanged viewController bindingName dispatch setter
+                    self.bindValueChanged viewController model bindingName dispatch setter
                 | BindTwoWay (getter,setter) ->
                     let value = getter updatedModel
                     self.bind viewController bindingName value
-                    self.bindValueChanged viewController bindingName dispatch setter
+                    self.bindValueChanged viewController model bindingName dispatch setter
                 | BindTwoWayValidation (getter,setter) -> ()
                 | BindCmd (exec, canExec) ->
                     let msg = exec viewController model
