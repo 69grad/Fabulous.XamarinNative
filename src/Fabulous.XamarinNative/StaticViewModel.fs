@@ -11,6 +11,7 @@ open System.Diagnostics
 
 type Command = { execute: Action<obj>; canExecute: Func<obj, bool> }
 
+
 type internal PropertyBinding<'model, 'msg> =
     | Get of Getter<'model>
     | Set of Setter<'model, 'msg>
@@ -22,7 +23,8 @@ type internal PropertyBinding<'model, 'msg> =
     | Map of Getter<'model> * (obj -> obj)
 
 
-and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IXamarinNativeProgramHost, debug: bool) as self =
+and [<AbstractClass>]
+    StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IXamarinNativeProgramHost, debug: bool) as self =
     inherit System.Dynamic.DynamicObject()
 
     let props = new Dictionary<string, PropertyBinding<'model, 'msg>>()
