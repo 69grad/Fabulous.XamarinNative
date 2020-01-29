@@ -2,12 +2,14 @@ namespace Fabulous.StaticView
 
 open UIKit
 open System
+open Fabulous.XamarinNative
 
-type UIFabulousTableViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
-    inherit UITableViewController(handle)
+type UIFabulousViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
+    inherit UIViewController(handle)
     let mutable staticViewController: 't = null
 
     override this.ViewDidLoad() =
         base.ViewDidLoad()
 
         staticViewController <- Activator.CreateInstance(typeof<'t>, this) :?> 't
+

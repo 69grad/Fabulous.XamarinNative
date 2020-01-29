@@ -23,23 +23,29 @@
     <MtouchFastDev>true</MtouchFastDev>
     <IOSDebuggerPort>14948</IOSDebuggerPort>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-    <PlatformTarget></PlatformTarget>
+    <PlatformTarget>
+    </PlatformTarget>
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
-    <MtouchVerbosity></MtouchVerbosity>
-    <MtouchLink></MtouchLink>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
+    <MtouchLink>
+    </MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <GenerateTailCalls>true</GenerateTailCalls>
-    <PlatformTarget></PlatformTarget>
-    <MtouchVerbosity></MtouchVerbosity>
+    <PlatformTarget>
+    </PlatformTarget>
+    <MtouchVerbosity>
+    </MtouchVerbosity>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,13 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Compile Include="AssemblyInfo.fs" />
+    <None Include="packages.config" />
+    <Compile Include="UIFabulousViewController.fs" />
+    <Compile Include="UIFabulousTableViewController.fs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Component1.fs" />
-    <Compile Include="Script.fsx" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj">
+      <Project>{cff38367-b762-4807-8e8b-f70207d8be3b}</Project>
+      <Name>Fabulous.XamarinNative</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.FSharp.targets" />
 </Project>

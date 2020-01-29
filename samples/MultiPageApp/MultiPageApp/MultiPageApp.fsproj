@@ -18,12 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
-            <HintPath>..\..\..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\Current\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj"/>
     </ItemGroup>
 

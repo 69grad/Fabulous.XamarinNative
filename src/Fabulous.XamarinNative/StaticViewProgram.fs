@@ -2,15 +2,15 @@
 namespace Fabulous.StaticView
 
 open Fabulous.Core
+open Fabulous.XamarinNative
 open System
 open System.Diagnostics
-open UIKit
 
 [<RequireQualifiedAccess>]
 module StaticView =
 
     /// Starts the Elmish dispatch loop for the page with the given Elmish program
-    type StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, _>)  = 
+    type StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> IXamarinNativeProgramHost * ViewBinding<'model,'msg> list>)  = 
 
         do Debug.WriteLine "run: computing initial model"
 
@@ -24,7 +24,7 @@ module StaticView =
         do Debug.WriteLine "run: computing static components of view"
 
         // Extract the static content from the view
-        let (mainViewController: UIViewController, bindings) = program.view ()
+        let (mainViewController: IXamarinNativeProgramHost, bindings) = program.view ()
 
         // Start Elmish dispatch loop  
         let rec processMsg msg = 
@@ -42,18 +42,20 @@ module StaticView =
             with ex ->
                 program.onError ("Unable to process a message:", ex)
 
-        and updateView updatedModel = 
-            match lastViewData with
-            | None -> 
-
-                // Construct the binding context for the view model
-                let viewModel = StaticViewModel (updatedModel, dispatch, bindings, mainViewController, program.debug)
-                viewModel.SetBindings bindings mainViewController updatedModel dispatch
-                lastViewData <- Some (mainViewController, bindings, viewModel)
-
-            | Some (page, bindings, viewModel)  ->
-                viewModel.UpdateModel bindings updatedModel
-                lastViewData <- Some (page, bindings, viewModel)
+        and updateView updatedModel =
+// TODO!
+            lastViewData <- None
+//            match lastViewData with
+//            | None -> 
+//
+//                // Construct the binding context for the view model
+//                let viewModel = StaticViewModel (updatedModel, dispatch, bindings, mainViewController, program.debug)
+//                viewModel.SetBindings bindings mainViewController updatedModel dispatch
+//                lastViewData <- Some (mainViewController, bindings, viewModel)
+//
+//            | Some (page, bindings, viewModel)  ->
+//                viewModel.UpdateModel bindings updatedModel
+//                lastViewData <- Some (page, bindings, viewModel)
                       
         do 
            // Set up the global dispatch function
@@ -100,16 +102,14 @@ module Program =
               //Nav.globalNavMap <- (navMap |> List.map (fun (tg, page) -> ((tg :> System.IComparable), page)) |> Map.ofList)
               page, contents  )}
 
-    let runWithStaticView (program: Program<'model, 'msg, _>) = 
+    let runWithStaticView (program: Program<'model, 'msg, unit -> IXamarinNativeProgramHost * ViewBinding<'model,'msg> list>) = 
         let program = 
             { init = program.init
               update = program.update
               subscribe = program.subscribe
               onError = program.onError
               debug = program.debug
-              view = (fun () -> 
-                  let viewController, bindings = program.view ()
-                  ((viewController :> UIViewController), bindings)) }
+              view = program.view }
         StaticView.StaticViewProgramRunner(program)
 
     /// Trace all the updates to the console

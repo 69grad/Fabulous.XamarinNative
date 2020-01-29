@@ -2,9 +2,9 @@
 
 open Fabulous.Core
 open Fabulous.StaticView
+open Fabulous.XamarinNative
 open MultiPageApp
 open Common
-open UIKit
 
 type Model =
   { NewPerson: Person }
@@ -14,7 +14,7 @@ type Msg =
     | SetLastname of string
     | Save
 
-type AddPersonStaticViewModel (controller : UIViewController) =
+type AddPersonStaticViewModel (host : IXamarinNativeProgramHost) =
 
     let initModel () = { NewPerson = {Firstname = ""; Lastname = "" } }
 
@@ -31,15 +31,18 @@ type AddPersonStaticViewModel (controller : UIViewController) =
 
     let view () =
 
-        controller, [
+        host, [
             "_firstnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Firstname) (fun v -> SetFirstname v )
             "_lastnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Lastname) (fun v -> SetLastname v )
             "_saveButton" |> Binding.msg Save
         ]
 
-    let runner =
-        Program.mkSimple init update view
-        |> Program.withConsoleTrace
-        |> Program.runWithStaticView
+    let program = Program.mkSimple init update view
+    let runer = program |> Program.runWithStaticView
+    
+//    let runner =
+//        Program.mkSimple init update view
+//        |> Program.withConsoleTrace
+//        |> Program.runWithStaticView
 
     interface IStaticViewController

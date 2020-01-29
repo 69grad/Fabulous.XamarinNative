@@ -2,9 +2,9 @@
 
 open Fabulous.Core
 open Fabulous.StaticView
+open Fabulous.XamarinNative
 open MultiPageApp
 open MultiPageApp.Common
-open UIKit
 
 type Model =
   { People : Person[] }
@@ -12,7 +12,7 @@ type Model =
 type Msg =
     | Reset
 
-type PeopleStaticViewModel (controller : UIViewController) =
+type PeopleStaticViewModel (host : IXamarinNativeProgramHost) =
 
     let initModel () = {
         People = PeopleRepo.people;
@@ -26,7 +26,7 @@ type PeopleStaticViewModel (controller : UIViewController) =
 
     let view () =
 
-        controller, [
+        host, [
             "People" |> Binding.oneWay (fun m -> m.People)
         ]
 

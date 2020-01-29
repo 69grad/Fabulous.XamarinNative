@@ -13,8 +13,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewController\UIFabulousViewController.fs" />
-    <Compile Include="ViewController\UIFabulousTableViewController.fs" />
+    <Compile Include="Types.fs" />
     <Compile Include="ElmishCmd.fs" />
     <Compile Include="ElmishProgram.fs" />
     <Compile Include="SimpleMessenger.fs" />
