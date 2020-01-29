@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Internal.fs" />
         <Compile Include="Types.fs" />
         <Compile Include="ElmishCmd.fs" />
         <Compile Include="ElmishProgram.fs" />
