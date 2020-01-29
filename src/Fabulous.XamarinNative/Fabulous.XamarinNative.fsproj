@@ -1,24 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Fabulous.StaticView.iOS</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Description>F# Functional App Dev Framework - Elmish bindings for XAML Xamarin.Forms</Description>
-    <PackageTags>LiveUpdate;Hot reload</PackageTags>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065">
-      <HintPath>..\..\..\..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\Current\lib\mono\Xamarin.iOS\Xamarin.iOS.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Types.fs" />
-    <Compile Include="ElmishCmd.fs" />
-    <Compile Include="ElmishProgram.fs" />
-    <Compile Include="SimpleMessenger.fs" />
-    <Compile Include="StaticViewBinding.fs" />
-    <Compile Include="StaticViewModel.fs" />
-    <Compile Include="StaticViewProgram.fs" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>Fabulous.StaticView.iOS</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Types.fs" />
+        <Compile Include="ElmishCmd.fs" />
+        <Compile Include="ElmishProgram.fs" />
+        <Compile Include="SimpleMessenger.fs" />
+        <Compile Include="StaticViewBinding.fs" />
+        <Compile Include="StaticViewProgram.fs" />
+        <Compile Include="StaticViewModel.fs" />
+    </ItemGroup>
 </Project>

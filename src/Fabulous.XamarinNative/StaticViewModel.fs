@@ -1,12 +1,11 @@
 ﻿// Copyright 2018 Fabulous contributors. See LICENSE.md for license.
 namespace Fabulous.StaticView
 
+open Fabulous.XamarinNative
 open System
 open System.Collections.Generic
 open System.ComponentModel
 open System.Diagnostics
-open System.Reflection
-open UIKit
 
 /// The internal representation of a binding in the ViewModel for static Xaml
 
@@ -22,7 +21,8 @@ type internal PropertyBinding<'model, 'msg> =
     | SubModel of ('model -> obj) * (obj -> 'msg) * StaticViewModel<obj, obj>
     | Map of Getter<'model> * (obj -> obj)
 
-and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: UIViewController, debug: bool) as self =
+
+and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IXamarinNativeProgramHost, debug: bool) as self =
     inherit System.Dynamic.DynamicObject()
 
     let props = new Dictionary<string, PropertyBinding<'model, 'msg>>()
@@ -64,42 +64,51 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
         //| BindSubModel (ViewSubModel (_, _subName, getter, toMsg, propMap)) -> name, // SubModel (getter, toMsg, StaticViewModel<obj, obj>(getter model, toMsg >> dispatch, propMap, debug))
         | BindMap (getter, mapper) -> name, Map (getter, mapper)
 
-    let getUiElement (viewController: UIViewController) (elementName: string) =
-        let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
-        if propInfo <> null then
-            propInfo.GetValue(viewController)
-        else
-            null
+// TODO
+//    let getUiElement (viewController: UIViewController) (elementName: string) =
+//        let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
+//        if propInfo <> null then
+//            propInfo.GetValue(viewController)
+//        else
+//            null
 
-    let bind (viewController: UIViewController) (elementName: string) (value: obj) =
-        let element = getUiElement viewController elementName
-        match element with
-        | :? UILabel as label -> label.Text <- value.ToString()
-        | :? UITextField as textField -> textField.Text <- value.ToString()
-        | null ->
-            let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
-            propInfo.SetValue(viewController, value)
-        | _ -> ()
+// TODO
+    
+    
+//    let bind (viewController: IXamarinNativeProgramHost) (elementName: string) (value: obj) =
+//        let element = getUiElement viewController elementName
+//        match element with
+//        | :? UILabel as label -> label.Text <- value.ToString()
+//        | :? UITextField as textField -> textField.Text <- value.ToString()
+//        | null ->
+//            let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
+//            propInfo.SetValue(viewController, value)
+//        | _ -> ()
+//
+     
+//    let bindCmd (viewController: IXamarinNativeProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
+//        let element = getUiElement viewController elementName
+//        match element with
+//        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
+//        | _ -> ()
+//        ()
 
-    let bindCmd (viewController: UIViewController) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
-        let element = getUiElement viewController elementName
-        match element with
-        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
-        | _ -> ()
-
-    let bindValueChanged (viewController: UIViewController) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
-        let element = getUiElement viewController elementName
-        match element with
-        | :? UITextField as textField ->
-            textField.AddTarget(EventHandler (fun sender event ->
-                dispatch <| setter textField.Text model)
-            , UIControlEvent.EditingChanged)
-        | :? UISlider as slider ->
-            slider.AddTarget(EventHandler (fun sender event ->
-                let value = int(slider.Value + 0.5f)
-                dispatch <| setter value model)
-            , UIControlEvent.ValueChanged)
-        | _ -> ()
+// TODO
+//    let bindValueChanged (viewController: IXamarinNativeProgramHost) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
+//        let element = getUiElement viewController elementName
+//        match element with
+//        | :? UITextField as textField ->
+//            textField.AddTarget(EventHandler (fun sender event ->
+//                dispatch <| setter textField.Text model)
+//            , UIControlEvent.EditingChanged)
+//        | :? UISlider as slider ->
+//            slider.AddTarget(EventHandler (fun sender event ->
+//                let value = int(slider.Value + 0.5f)
+//                dispatch <| setter value model)
+//            , UIControlEvent.ValueChanged)
+//        | _ -> ()
+        
+ 
 
     do propMap |> List.map convert |> List.iter props.Add
 
@@ -116,6 +125,10 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
                 | false, _ -> []
             results :> System.Collections.IEnumerable
 
+    abstract bind : IXamarinNativeProgramHost -> string -> obj -> unit
+    abstract bindCmd : IXamarinNativeProgramHost -> string -> ('msg -> unit) -> 'msg -> unit
+    abstract bindValueChanged : IXamarinNativeProgramHost -> string -> ('msg -> unit) -> Setter<'model, 'msg> -> unit
+    
     /// Used internally to update the model. Only properties that have changed are updated.
     member __.UpdateModel (bindings: ViewBindings<'model, 'msg>) (other: 'model) : unit =
         if Object.ReferenceEquals (model, other) then
@@ -130,7 +143,7 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
                     let value = getter other
                     let old = getter model
                     if value <> old then
-                        bind viewController bindingName value
+                        self.bind viewController bindingName value
                 | _ -> ()
 
         model <- other
@@ -140,16 +153,16 @@ and StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: Vi
             match binding with
                 | Bind getter ->
                     let value = getter updatedModel
-                    bind viewController bindingName value
+                    self.bind viewController bindingName value
                 | BindOneWayToSource setter ->
-                    bindValueChanged viewController bindingName dispatch setter
+                    self.bindValueChanged viewController bindingName dispatch setter
                 | BindTwoWay (getter,setter) ->
                     let value = getter updatedModel
-                    bind viewController bindingName value
-                    bindValueChanged viewController bindingName dispatch setter
+                    self.bind viewController bindingName value
+                    self.bindValueChanged viewController bindingName dispatch setter
                 | BindTwoWayValidation (getter,setter) -> ()
                 | BindCmd (exec, canExec) ->
                     let msg = exec viewController model
-                    bindCmd viewController bindingName dispatch msg
+                    self.bindCmd viewController bindingName dispatch msg
                 | BindSubModel (ViewSubModel (page, name,getter,toMsg,bindings)) -> ()
                 | BindMap (getter,mapper) -> ()
