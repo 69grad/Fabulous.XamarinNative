@@ -10,7 +10,7 @@ open System.Diagnostics
 module StaticView =
     
     /// Starts the Elmish dispatch loop for the page with the given Elmish program
-    type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> IXamarinNativeProgramHost * ViewBinding<'model,'msg> list>) as self = 
+    type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> ViewBinding<'model,'msg> list>) as self = 
 
         do Debug.WriteLine "run: computing initial model"
 
@@ -24,7 +24,9 @@ module StaticView =
         do Debug.WriteLine "run: computing static components of view"
 
         // Extract the static content from the view
-        let (mainViewController: IXamarinNativeProgramHost, bindings) = program.view ()
+        //let (mainViewController: IXamarinNativeProgramHost, bindings) = program.view ()
+        let bindings = program.view()
+        let mainViewController = program.host
 
         // Start Elmish dispatch loop  
         let rec processMsg msg = 
@@ -107,6 +109,7 @@ module Program =
           subscribe = program.subscribe
           onError = program.onError
           debug = program.debug
+          host = program.host
           view = (fun () -> 
               let page, contents, navMap = program.view ()
               Debug.WriteLine "setting global navigation map"
@@ -114,14 +117,15 @@ module Program =
               //Nav.globalNavMap <- (navMap |> List.map (fun (tg, page) -> ((tg :> System.IComparable), page)) |> Map.ofList)
               page, contents  )}
 
-    let runWithStaticView (program: Program<'model, 'msg, unit -> IXamarinNativeProgramHost * ViewBinding<'model,'msg> list>) = 
+    let runWithStaticView (program: Program<'model, 'msg, unit -> ViewBinding<'model,'msg> list>) = 
         let program = 
             { init = program.init
               update = program.update
               subscribe = program.subscribe
               onError = program.onError
               debug = program.debug
-              view = program.view }
+              view = program.view
+              host = program.host }
         StaticView.StaticViewProgramRunner(program)
 
     /// Trace all the updates to the console

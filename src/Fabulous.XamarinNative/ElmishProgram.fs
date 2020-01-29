@@ -2,6 +2,7 @@
 namespace Fabulous.Core
 
 open System
+open Fabulous.XamarinNative
 
 [<AutoOpen>]
 module Values =
@@ -25,6 +26,7 @@ type Program<'model, 'msg, 'view> =
     { init : unit -> 'model * Cmd<'msg>
       update : 'msg -> 'model -> 'model * Cmd<'msg>
       subscribe : 'model -> Cmd<'msg>
+      host : IXamarinNativeProgramHost
       view : 'view
       debug : bool
       onError : (string * exn) -> unit }
@@ -37,17 +39,18 @@ module Program =
         Console.WriteLine (sprintf "%s: %A" text ex)
 
     /// Typical program, new commands are produced by `init` and `update` along with the new state.
-    let mkProgram (init : unit -> 'model * Cmd<'msg>) (update : 'msg -> 'model -> 'model * Cmd<'msg>) (view : 'view) =
+    let mkProgram (init : unit -> 'model * Cmd<'msg>) (update : 'msg -> 'model -> 'model * Cmd<'msg>) (view : 'view) (host : IXamarinNativeProgramHost) =
         { init = init
           update = update
           view = view
+          host = host
           subscribe = fun _ -> Cmd.none
           debug = false
           onError = onError }
 
     /// Simple program that produces only new state with `init` and `update`.
-    let mkSimple (init : unit -> 'model) (update : 'msg -> 'model -> 'model) (view : 'view) = 
-        mkProgram (fun arg -> init arg, Cmd.none) (fun msg model -> update msg model, Cmd.none) view
+    let mkSimple (init : unit -> 'model) (update : 'msg -> 'model -> 'model) (view : 'view) (host : IXamarinNativeProgramHost) = 
+        mkProgram (fun arg -> init arg, Cmd.none) (fun msg model -> update msg model, Cmd.none) view host
 
     /// Typical program, new commands are produced discriminated unions returned by `init` and `update` along with the new state.
     let mkProgramWithCmdMsg (init: unit -> 'model * 'cmdMsg list) (update: 'msg -> 'model -> 'model * 'cmdMsg list) (view: 'view) (mapToCmd: 'cmdMsg -> Cmd<'msg>) =

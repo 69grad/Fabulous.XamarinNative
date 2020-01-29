@@ -30,14 +30,13 @@ type AddPersonStaticViewModel (host : IXamarinNativeProgramHost) =
             model
 
     let view () =
-
-        host, [
+        [
             "_firstnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Firstname) (fun v -> SetFirstname v )
             "_lastnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Lastname) (fun v -> SetLastname v )
             "_saveButton" |> Binding.msg Save
         ]
 
-    let program = Program.mkSimple init update view
+    let program = Program.mkSimple init update view host
     let runer = program |> Program.runWithStaticView
     
 //    let runner =

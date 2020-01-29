@@ -26,12 +26,12 @@ type PeopleStaticViewModel (host : IXamarinNativeProgramHost) =
 
     let view () =
 
-        host, [
+        [
             "People" |> Binding.oneWay (fun m -> m.People)
         ]
 
     let runner =
-        Program.mkSimple init update view
+        Program.mkSimple init update view host
         |> Program.withConsoleTrace
         |> Program.runWithStaticView
 
