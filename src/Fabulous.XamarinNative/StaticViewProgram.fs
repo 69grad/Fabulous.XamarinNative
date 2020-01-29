@@ -46,14 +46,14 @@ module StaticView =
             match lastViewData with
             | None -> 
                 // Construct the binding context for the view model
-                let viewModel : StaticViewModel<'model, 'msg> =
-                    StaticViewProgramRunner<'model, 'msg>
-                        .StaticViewModelFactory(
-                            updatedModel,
-                            dispatch,
-                            bindings,
-                            mainViewController,
-                            program.debug)
+                let factory = StaticViewProgramRunner<_,_>.staticViewModelFactory
+                let viewModel : StaticViewModel<_,_> =
+                    factory(
+                        updatedModel,
+                        dispatch,
+                        bindings,
+                        mainViewController,
+                        program.debug)
                         
                 viewModel.SetBindings bindings mainViewController updatedModel dispatch
                 lastViewData <- Some (mainViewController, bindings, viewModel)
@@ -75,14 +75,13 @@ module StaticView =
            for sub in (program.subscribe initialModel @ cmd) do
                 sub dispatch
                 
-        static let mutable staticViewModelFactory :
-            'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg> =
-                (fun _ -> failwith "Implement me first!")
+        [<DefaultValue>]
+        static val mutable private staticViewModelFactory :
+            'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg>
             
         static member StaticViewModelFactory
-            with private get() = staticViewModelFactory
-            and set(value) = staticViewModelFactory <- value
-
+            with set(value) = StaticViewProgramRunner<_,_>.staticViewModelFactory <- value
+            
         member __.InitialMainPage = mainViewController
 
         member __.CurrentModel = lastModel 
