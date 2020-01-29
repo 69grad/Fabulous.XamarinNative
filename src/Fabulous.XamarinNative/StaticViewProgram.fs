@@ -8,9 +8,9 @@ open System.Diagnostics
 
 [<RequireQualifiedAccess>]
 module StaticView =
-
+    
     /// Starts the Elmish dispatch loop for the page with the given Elmish program
-    type StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> IXamarinNativeProgramHost * ViewBinding<'model,'msg> list>)  = 
+    type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> IXamarinNativeProgramHost * ViewBinding<'model,'msg> list>) as self = 
 
         do Debug.WriteLine "run: computing initial model"
 
@@ -43,19 +43,24 @@ module StaticView =
                 program.onError ("Unable to process a message:", ex)
 
         and updateView updatedModel =
-// TODO!
-            lastViewData <- None
-//            match lastViewData with
-//            | None -> 
-//
-//                // Construct the binding context for the view model
-//                let viewModel = StaticViewModel (updatedModel, dispatch, bindings, mainViewController, program.debug)
-//                viewModel.SetBindings bindings mainViewController updatedModel dispatch
-//                lastViewData <- Some (mainViewController, bindings, viewModel)
-//
-//            | Some (page, bindings, viewModel)  ->
-//                viewModel.UpdateModel bindings updatedModel
-//                lastViewData <- Some (page, bindings, viewModel)
+            match lastViewData with
+            | None -> 
+                // Construct the binding context for the view model
+                let viewModel : StaticViewModel<'model, 'msg> =
+                    StaticViewProgramRunner<'model, 'msg>
+                        .StaticViewModelFactory(
+                            updatedModel,
+                            dispatch,
+                            bindings,
+                            mainViewController,
+                            program.debug)
+                        
+                viewModel.SetBindings bindings mainViewController updatedModel dispatch
+                lastViewData <- Some (mainViewController, bindings, viewModel)
+
+            | Some (page, bindings, viewModel)  ->
+                viewModel.UpdateModel bindings updatedModel
+                lastViewData <- Some (page, bindings, viewModel)
                       
         do 
            // Set up the global dispatch function
@@ -69,6 +74,13 @@ module StaticView =
            Debug.WriteLine "dispatching initial commands"
            for sub in (program.subscribe initialModel @ cmd) do
                 sub dispatch
+                
+        static let mutable staticViewModelFactory : 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg> =
+            failwith "Implement me first"
+            
+        static member StaticViewModelFactory
+            with get() = staticViewModelFactory
+            and set(value) = staticViewModelFactory <- value
 
         member __.InitialMainPage = mainViewController
 

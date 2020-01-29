@@ -11,7 +11,7 @@
         <Compile Include="ElmishProgram.fs" />
         <Compile Include="SimpleMessenger.fs" />
         <Compile Include="StaticViewBinding.fs" />
-        <Compile Include="StaticViewProgram.fs" />
         <Compile Include="StaticViewModel.fs" />
+        <Compile Include="StaticViewProgram.fs" />
     </ItemGroup>
 </Project>
