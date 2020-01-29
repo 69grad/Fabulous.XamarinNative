@@ -13,16 +13,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewController\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="ViewController\UIFabulousViewController.fs" />
+    <Compile Include="ViewController\UIFabulousTableViewController.fs" />
     <Compile Include="ElmishCmd.fs" />
     <Compile Include="ElmishProgram.fs" />
     <Compile Include="SimpleMessenger.fs" />
     <Compile Include="StaticViewBinding.fs" />
     <Compile Include="StaticViewModel.fs" />
     <Compile Include="StaticViewProgram.fs" />
-    <Compile Include="ViewController\UIFabulousViewController.fs" />
-    <Compile Include="ViewController\UIFabulousTableViewController.fs" />
   </ItemGroup>
 </Project>

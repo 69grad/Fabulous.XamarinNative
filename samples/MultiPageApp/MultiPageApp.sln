@@ -1,11 +1,17 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPageApp.iOS", "MultiPageApp.iOS\MultiPageApp.iOS.csproj", "{94E5993C-EC20-4A6F-B276-4B6D7CEC9BA0}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MultiPageApp", "MultiPageApp\MultiPageApp.fsproj", "{22F7443C-9AC1-4D89-AB7B-5910B9FE8696}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.StaticView.iOS", "..\..\src\Fabulous.StaticView.iOS\Fabulous.StaticView.iOS.fsproj", "{CFF38367-B762-4807-8E8B-F70207D8BE3B}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.XamarinNative", "..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj", "{CFF38367-B762-4807-8E8B-F70207D8BE3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{AF334946-5EEE-43BD-A93C-AED1A7BF2057}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{90B43E6E-BB85-44D7-AAEF-CC75E13CFC76}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.XamarinNative.iOS", "..\..\src\Fabulous.XamarinNative.iOS\Fabulous.XamarinNative.iOS.fsproj", "{500D2C97-C5CA-4E74-B03D-656D043BFB68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,5 +45,19 @@ Global
 		{CFF38367-B762-4807-8E8B-F70207D8BE3B}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{CFF38367-B762-4807-8E8B-F70207D8BE3B}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{CFF38367-B762-4807-8E8B-F70207D8BE3B}.Release|iPhone.Build.0 = Release|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68}.Release|iPhone.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94E5993C-EC20-4A6F-B276-4B6D7CEC9BA0} = {90B43E6E-BB85-44D7-AAEF-CC75E13CFC76}
+		{22F7443C-9AC1-4D89-AB7B-5910B9FE8696} = {90B43E6E-BB85-44D7-AAEF-CC75E13CFC76}
+		{CFF38367-B762-4807-8E8B-F70207D8BE3B} = {AF334946-5EEE-43BD-A93C-AED1A7BF2057}
+		{500D2C97-C5CA-4E74-B03D-656D043BFB68} = {AF334946-5EEE-43BD-A93C-AED1A7BF2057}
 	EndGlobalSection
 EndGlobal
