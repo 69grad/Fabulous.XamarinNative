@@ -1,13 +1,13 @@
-module Fabulous.XamarinNative.iOS.Setup
+namespace Fabulous.StaticView
+
+    module FabulousIosSetup =
     
-    open Fabulous.StaticView
-    
-    let initialize() =
-        StaticView.StaticViewProgramRunner<_,_>.StaticViewModelFactory <-
-            (fun (updatedModel, dispatch, bindings, host, debug) ->
-                IosStaticViewModel(
-                    updatedModel,
-                    dispatch,
-                    bindings,
-                    host,
-                    debug) :> StaticViewModel<_,_>)
+        let initialize() =
+            StaticView.StaticViewProgramRunner<_,_>.StaticViewModelFactory <-
+                (fun (updatedModel, dispatch, bindings, host, debug) ->
+                    IosStaticViewModel(
+                        updatedModel,
+                        dispatch,
+                        bindings,
+                        host,
+                        debug) :> StaticViewModel<_,_>)

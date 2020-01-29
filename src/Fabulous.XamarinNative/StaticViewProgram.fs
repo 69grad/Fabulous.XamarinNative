@@ -75,11 +75,12 @@ module StaticView =
            for sub in (program.subscribe initialModel @ cmd) do
                 sub dispatch
                 
-        static let mutable staticViewModelFactory : 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg> =
-            failwith "Implement me first"
+        static let mutable staticViewModelFactory :
+            'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg> =
+                (fun _ -> failwith "Implement me first!")
             
         static member StaticViewModelFactory
-            with get() = staticViewModelFactory
+            with private get() = staticViewModelFactory
             and set(value) = staticViewModelFactory <- value
 
         member __.InitialMainPage = mainViewController

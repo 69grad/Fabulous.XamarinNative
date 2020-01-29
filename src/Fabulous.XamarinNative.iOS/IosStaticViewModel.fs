@@ -1,4 +1,4 @@
-namespace Fabulous.XamarinNative.iOS
+namespace Fabulous.StaticView
 
 open System
 open System.Reflection

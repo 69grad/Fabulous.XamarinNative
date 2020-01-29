@@ -1,5 +1,7 @@
-﻿using Foundation;
+﻿using Fabulous.StaticView;
+using Foundation;
 using UIKit;
+
 
 namespace MultiPageApp.iOS
 {
@@ -17,6 +19,10 @@ namespace MultiPageApp.iOS
         {
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
+            
+            // Initialize Fabulous.XamarinNative
+            FabulousIosSetup.initialize();
+            
             return true;
         }
 
