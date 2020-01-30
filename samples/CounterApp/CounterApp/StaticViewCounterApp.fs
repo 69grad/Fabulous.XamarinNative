@@ -1,8 +1,8 @@
-﻿namespace StaticViewCounterApp
+﻿namespace CounterApp
 
 open Fabulous.Core
 open Fabulous.StaticView
-open UIKit
+open Fabulous.XamarinNative
 
 type Model =
   { Count : int
@@ -18,7 +18,7 @@ type Msg =
 
 type Element = {name:string}
 
-type StaticViewCounterApp (controller : UIViewController) =
+type StaticViewCounterApp (host : IXamarinNativeProgramHost) =
 
     let initModel () = { Count = 0; Step = 3; Name = "FSharp" }
 
@@ -34,7 +34,7 @@ type StaticViewCounterApp (controller : UIViewController) =
 
     let view () =
 
-        controller, [
+        [
             "_incrementButton" |> Binding.msg Increment
             "_decrementButton" |> Binding.msg Decrement
             "_resetButton" |> Binding.msg Reset
@@ -46,7 +46,7 @@ type StaticViewCounterApp (controller : UIViewController) =
         ]
 
     let runner =
-        Program.mkSimple init update view
+        Program.mkSimple init update view host
         |> Program.withConsoleTrace
         |> Program.runWithStaticView
 

@@ -1,7 +1,8 @@
-﻿using Foundation;
+﻿using Fabulous.StaticView;
+using Foundation;
 using UIKit;
 
-namespace StaticViewCounterApp.iOS
+namespace CounterApp.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
@@ -17,6 +18,10 @@ namespace StaticViewCounterApp.iOS
         {
             // Override point for customization after application launch.
             // If not required for your application you can safely delete this method
+            
+            // Initialize Fabulous.XamarinNative
+            FabulousIosSetup.initialize();
+            
             return true;
         }
 

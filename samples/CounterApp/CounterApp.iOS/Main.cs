@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace StaticViewCounterApp.iOS
+namespace CounterApp.iOS
 {
     public class Application
     {

@@ -2,7 +2,7 @@
 
 namespace FabulousStaticViewTest.iOS
 {
-    public partial class ViewController : Fabulous.StaticView.UIFabulousViewController<StaticViewCounterApp.StaticViewCounterApp>
+    public partial class ViewController : Fabulous.StaticView.UIFabulousViewController<CounterApp.StaticViewCounterApp>
     {
         public ViewController(IntPtr handle) : base(handle)
         {

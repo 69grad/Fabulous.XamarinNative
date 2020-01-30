@@ -7,8 +7,8 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{edc1b0fa-90cd-4038-8fad-98fe74adb368}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>StaticViewCounterApp.iOS</RootNamespace>
-    <AssemblyName>StaticViewCounterApp.iOS</AssemblyName>
+    <RootNamespace>CounterApp.iOS</RootNamespace>
+    <AssemblyName>CounterApp.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
@@ -137,13 +137,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Fabulous.StaticView.iOS\Fabulous.StaticView.iOS.fsproj">
-      <Project>{1a56f9bf-f202-442e-97d6-ec89b6275d6b}</Project>
-      <Name>Fabulous.StaticView.iOS</Name>
+    <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative.iOS\Fabulous.XamarinNative.iOS.fsproj">
+      <Project>{500d2c97-c5ca-4e74-b03d-656d043bfb68}</Project>
+      <Name>Fabulous.XamarinNative.iOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StaticViewCounterApp\StaticViewCounterApp.fsproj">
-      <Project>{98C6D027-3830-44FF-BE63-C13611B51ADF}</Project>
-      <Name>StaticViewCounterApp</Name>
+    <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj">
+      <Project>{cff38367-b762-4807-8e8b-f70207d8be3b}</Project>
+      <Name>Fabulous.XamarinNative</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CounterApp\CounterApp.fsproj">
+      <Project>{bc1048c4-dcfb-4b5e-bf71-f3ad131bd07f}</Project>
+      <Name>CounterApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

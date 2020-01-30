@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>CounterApp</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="StaticViewCounterApp.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj" />
+    </ItemGroup>
+
+</Project>

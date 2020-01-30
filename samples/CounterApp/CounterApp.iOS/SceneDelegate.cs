@@ -1,7 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 
-namespace StaticViewCounterApp.iOS
+namespace CounterApp.iOS
 {
     [Register("SceneDelegate")]
     public class SceneDelegate : UIResponder, IUIWindowSceneDelegate

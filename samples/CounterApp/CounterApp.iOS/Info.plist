@@ -64,6 +64,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleName</key>
-	<string>StaticViewCounterApp.iOS</string>
+	<string>CounterApp.iOS</string>
 </dict>
 </plist>
