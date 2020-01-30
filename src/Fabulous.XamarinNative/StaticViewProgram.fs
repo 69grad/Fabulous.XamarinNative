@@ -6,6 +6,17 @@ open Fabulous.XamarinNative
 open System
 open System.Diagnostics
 
+type IStaticViewModelFactory =
+    abstract member create : 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg>
+
+type public FactoryWeasel =
+    [<DefaultValue>]
+    static val mutable private factory : IStaticViewModelFactory
+        
+    static member StaticViewModelFactory
+        with set(value) = FactoryWeasel.factory <- value
+        and get() = FactoryWeasel.factory
+
 [<RequireQualifiedAccess>]
 module StaticView =
     
@@ -48,7 +59,7 @@ module StaticView =
             match lastViewData with
             | None -> 
                 // Construct the binding context for the view model
-                let factory = StaticViewProgramRunner<_,_>.staticViewModelFactory
+                let factory = FactoryWeasel.StaticViewModelFactory.create
                 let viewModel : StaticViewModel<_,_> =
                     factory(
                         updatedModel,

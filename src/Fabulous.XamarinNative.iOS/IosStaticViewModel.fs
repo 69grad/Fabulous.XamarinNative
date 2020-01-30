@@ -46,3 +46,13 @@ type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap
                 dispatch <| setter value model)
             , UIControlEvent.ValueChanged)
         | _ -> ()
+
+type IosStaticViewModelFactory() =
+    interface IStaticViewModelFactory with
+        member this.create (updatedModel, dispatch, bindings, host, debug) =
+            IosStaticViewModel(
+                updatedModel,
+                dispatch,
+                bindings,
+                host,
+                debug) :> StaticViewModel<_,_>
