@@ -116,9 +116,6 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
@@ -131,9 +128,9 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="SceneDelegate.cs" />
-    <Compile Include="ViewController.cs" />
-    <Compile Include="ViewController.designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
+    <Compile Include="CounterViewController.cs" />
+    <Compile Include="CounterViewController.designer.cs">
+      <DependentUpon>CounterViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

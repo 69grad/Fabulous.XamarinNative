@@ -8,10 +8,10 @@ using Foundation;
 using System;
 using System.CodeDom.Compiler;
 
-namespace FabulousStaticViewTest.iOS
+namespace CounterApp.iOS
 {
-    [Register ("ViewController")]
-    partial class ViewController
+    [Register (nameof(CounterViewController))]
+    partial class CounterViewController
     {
         [Outlet]
         UIKit.UITextField _twoWayOneTextField { get; set; }
