@@ -2,7 +2,7 @@
 
 open Fabulous.XamarinNative
 
-module AddPersonStaticViewModel = 
+module PeopleForm = 
     type Model =
         { NewPerson: Person }
 
@@ -11,7 +11,7 @@ module AddPersonStaticViewModel =
         | SetLastname of string
         | Save
 
-    type AddPersonStaticViewModel(host: IXamarinNativeProgramHost) =
+    type Program(host: IXamarinNativeProgramHost) =
         let initModel() =
             { NewPerson =
                   { Firstname = ""

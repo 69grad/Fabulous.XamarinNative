@@ -10,8 +10,8 @@ using System.CodeDom.Compiler;
 
 namespace MultiPageApp.iOS
 {
-    [Register ("AddPersonViewController")]
-    partial class AddPersonViewController
+    [Register (nameof(PeopleFormViewController))]
+    partial class PeopleFormViewController
     {
         [Outlet]
         UIKit.UITextField _firstnameTextField { get; set; }

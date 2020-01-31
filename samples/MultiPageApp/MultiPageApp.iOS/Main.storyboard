@@ -9,7 +9,7 @@
         <!--Add Person View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AddPersonViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PeopleFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -77,7 +77,7 @@
         <!--People View Controller-->
         <scene sceneID="G73-MZ-VkC">
             <objects>
-                <tableViewController id="P3f-PE-DJY" customClass="PeopleViewController" sceneMemberID="viewController">
+                <tableViewController id="P3f-PE-DJY" customClass="PeopleListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4R5-by-dIm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

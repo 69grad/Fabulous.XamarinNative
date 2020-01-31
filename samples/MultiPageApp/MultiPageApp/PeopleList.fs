@@ -2,14 +2,14 @@
 
 open Fabulous.XamarinNative
 
-module PeopleStaticViewModel =
+module PeopleList =
 
     type Model =
         { People: Person [] }
 
     type Msg = Reset
 
-    type PeopleStaticViewModel(host: IXamarinNativeProgramHost) =
+    type Program(host: IXamarinNativeProgramHost) =
 
         let initModel() = { People = PeopleRepo.people }
 

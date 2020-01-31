@@ -124,16 +124,16 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddPersonViewController.cs" />
-    <Compile Include="AddPersonViewController.designer.cs">
-      <DependentUpon>AddPersonViewController.cs</DependentUpon>
+    <Compile Include="PeopleFormViewController.cs" />
+    <Compile Include="PeopleFormViewController.designer.cs">
+      <DependentUpon>PeopleFormViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="PeopleTableViewDataSource.cs" />
-    <Compile Include="PeopleViewController.cs" />
-    <Compile Include="PeopleViewController.designer.cs">
-      <DependentUpon>PeopleViewController.cs</DependentUpon>
+    <Compile Include="PeopleListViewController.cs" />
+    <Compile Include="PeopleListViewController.designer.cs">
+      <DependentUpon>PeopleListViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SceneDelegate.cs" />
   </ItemGroup>

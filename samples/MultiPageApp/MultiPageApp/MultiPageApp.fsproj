@@ -5,20 +5,20 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <PackageReference Include="Fabulous" Version="0.51.0"/>
-        <PackageReference Include="FSharp.Core" Version="4.7.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
+        <PackageReference Include="Fabulous" Version="0.51.0" />
+        <PackageReference Include="FSharp.Core" Version="4.7.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="Common.fs"/>
-        <Compile Include="PeopleRepo.fs"/>
-        <Compile Include="PeopleStaticViewModel.fs"/>
-        <Compile Include="AddPersonStaticViewModel.fs"/>
+        <Compile Include="Common.fs" />
+        <Compile Include="PeopleRepo.fs" />
+        <Compile Include="PeopleList.fs" />
+        <Compile Include="PeopleForm.fs" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj"/>
+        <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj" />
     </ItemGroup>
 
 </Project>

@@ -11,8 +11,8 @@ using UIKit;
 
 namespace MultiPageApp.iOS
 {
-    [Register("PeopleViewController")]
-    partial class PeopleViewController
+    [Register(nameof(PeopleListViewController))]
+    partial class PeopleListViewController
     {
     }
 }

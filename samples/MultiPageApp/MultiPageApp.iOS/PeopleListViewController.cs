@@ -3,8 +3,8 @@ using Fabulous.XamarinNative;
 
 namespace MultiPageApp.iOS
 {
-    public partial class PeopleViewController
-        : UIFabulousTableViewController<PeopleStaticViewModel.PeopleStaticViewModel>
+    public partial class PeopleListViewController
+        : UIFabulousTableViewController<PeopleList.Program>
     {
         private Person[] _people;
 
@@ -19,7 +19,7 @@ namespace MultiPageApp.iOS
             }
         }
 
-        public PeopleViewController(IntPtr handle) : base(handle)
+        public PeopleListViewController(IntPtr handle) : base(handle)
         {
         }
     }

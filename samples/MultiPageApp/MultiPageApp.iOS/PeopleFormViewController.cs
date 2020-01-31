@@ -4,10 +4,10 @@ using Foundation;
 
 namespace MultiPageApp.iOS
 {
-    public partial class AddPersonViewController
-        : UIFabulousViewController<AddPersonStaticViewModel.AddPersonStaticViewModel>
+    public partial class PeopleFormViewController
+        : UIFabulousViewController<PeopleForm.Program>
     {
-        public AddPersonViewController(IntPtr handle) : base(handle)
+        public PeopleFormViewController(IntPtr handle) : base(handle)
         {
         }
 
