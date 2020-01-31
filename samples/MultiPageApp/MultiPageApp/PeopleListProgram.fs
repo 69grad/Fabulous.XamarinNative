@@ -27,5 +27,4 @@ module PeopleListProgram =
             |> Program.runWithStaticView
 
         do
-            let messageReceived = System.Action<string>(fun message -> runner.Dispatch Reset)
-            SimpleMessenger.subscribe messageReceived
+            Messenger.subscribe (fun _ -> runner.Dispatch Reset)

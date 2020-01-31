@@ -1,15 +1,15 @@
-﻿// Copyright 2018 Fabulous contributors. See LICENSE.md for license.
-namespace Fabulous.XamarinNative
+﻿namespace Fabulous.XamarinNative
 
-open System;
+open System
+open System.Collections.Generic
 
-module SimpleMessenger =
+module Messenger =
+    let private subscribers: List<string -> unit> = List<string -> unit>()
 
-    let mutable private recipients: Action<string>[] = [||]
+    let subscribe (action: string -> unit) =
+        subscribers.Add action
+        
+    // TODO: Implement an unscrubsribe function in order to prevent memory leaks
 
-    let subscribe(action: Action<string>) =
-        recipients <- Array.append recipients [|action|]
-
-    let publish(message: string) =
-        for r in recipients do
-            r.Invoke(message)
+    let publish (message: string) =
+        subscribers |> Seq.iter (fun subscriber -> subscriber (message))

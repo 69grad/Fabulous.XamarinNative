@@ -25,7 +25,7 @@ module PeopleFormProgram =
             | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }
             | Save -> // TODO: Remove side-effect (through returning a cmd)
                 PeopleRepository.addPerson model.NewPerson
-                SimpleMessenger.publish "Person added"
+                Messenger.publish "Person added"
                 model
 
         let view() =
