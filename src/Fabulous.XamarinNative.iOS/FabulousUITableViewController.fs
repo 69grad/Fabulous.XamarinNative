@@ -3,13 +3,13 @@ namespace Fabulous.XamarinNative
 open UIKit
 open System
 
-type FabulousUITableViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
+type FabulousUITableViewController<'t when 't: null>(handle: IntPtr) =
     inherit UITableViewController(handle)
-    let mutable staticViewController: 't = null
+    
+    [<DefaultValue>] val mutable program: 't
 
     override this.ViewDidLoad() =
         base.ViewDidLoad()
-
-        staticViewController <- Activator.CreateInstance(typeof<'t>, this) :?> 't
+        this.program <- Activator.CreateInstance(typeof<'t>, this) :?> 't
 
     interface IXamarinNativeProgramHost
