@@ -3,23 +3,6 @@ namespace Fabulous.XamarinNative
 
 open System
 open System.Diagnostics
-open Fabulous.XamarinNative
-
-[<AutoOpen>]
-module Values =
-    let NoCmd<'a> : Cmd<'a> = Cmd.none
-
-type IStaticViewModelFactory =
-    abstract create: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool
-     -> PlatformView<'model, 'msg>
-
-type public FactoryWeasel =
-    [<DefaultValue>]
-    static val mutable private factory: IStaticViewModelFactory
-
-    static member StaticViewModelFactory
-        with set (value) = FactoryWeasel.factory <- value
-    static member StaticViewModelFactory = FactoryWeasel.factory
 
 /// We store the current dispatch function for the running Elmish program as a
 /// static-global thunk because we want old view elements stored in the `dependsOn` global table
@@ -82,16 +65,16 @@ type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg,
         match lastViewData with
         | None ->
             // Construct the binding context for the view model
-            let factory = FactoryWeasel.StaticViewModelFactory.create
-            let viewModel: PlatformView<_, _> =
-                factory (updatedModel, dispatch, bindings, mainViewController, program.debug)
+            let platformViewFactory = PlatformViewFactory.Instance.create
+            let platformView: PlatformView<_, _> =
+                platformViewFactory (updatedModel, dispatch, bindings, mainViewController, program.debug)
 
-            viewModel.SetBindings bindings mainViewController updatedModel dispatch
-            lastViewData <- Some(mainViewController, bindings, viewModel)
+            platformView.SetBindings bindings mainViewController updatedModel dispatch
+            lastViewData <- Some(mainViewController, bindings, platformView)
 
-        | Some(page, bindings, viewModel) ->
-            viewModel.UpdateModel bindings updatedModel
-            lastViewData <- Some(page, bindings, viewModel)
+        | Some(page, bindings, platformView) ->
+            platformView.UpdateModel bindings updatedModel
+            lastViewData <- Some(page, bindings, platformView)
 
 
     do
@@ -106,13 +89,6 @@ type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg,
         Debug.WriteLine "dispatching initial commands"
         for sub in (program.subscribe initialModel @ cmd) do
             sub dispatch
-
-
-    [<DefaultValue>]
-    static val mutable private staticViewModelFactory: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool -> PlatformView<'model, 'msg>
-
-    static member StaticViewModelFactory
-        with set (value) = StaticViewProgramRunner<_, _>.staticViewModelFactory <- value
 
     member __.InitialMainPage = mainViewController
 

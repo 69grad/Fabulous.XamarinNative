@@ -45,13 +45,3 @@ type IosPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: V
                 dispatch <| setter value model)
             , UIControlEvent.ValueChanged)
         | _ -> failwith "Not implemented yet"
-
-type IosStaticViewModelFactory() =
-    interface IStaticViewModelFactory with
-        member this.create (updatedModel, dispatch, bindings, host, debug) =
-            IosPlatformView(
-                updatedModel,
-                dispatch,
-                bindings,
-                host,
-                debug) :> PlatformView<_,_>
