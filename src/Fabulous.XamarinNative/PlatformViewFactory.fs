@@ -6,8 +6,8 @@ type IPlatformViewFactory =
 
 type public PlatformViewFactory =
     [<DefaultValue>]
-    static val mutable private instance: IPlatformViewFactory
+    static val mutable private instance : IPlatformViewFactory
 
     static member Instance
         with set (value) = PlatformViewFactory.instance <- value
-    static member Instance = PlatformViewFactory.instance
+        and get() = PlatformViewFactory.instance
