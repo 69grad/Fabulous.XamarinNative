@@ -12,7 +12,7 @@ module PeopleListProgram =
     type Program(host: IProgramHost) =
         let initModel() = { People = PeopleRepository.people }
 
-        let init() = initModel()
+        let init() = initModel(), Cmd.none
 
         let update msg _ =
             match msg with
@@ -22,7 +22,7 @@ module PeopleListProgram =
             [ "People" |> Binding.oneWay (fun m -> m.People) ]
 
         let runner =
-            Program.mkSimple init update view host
+            Program.mkProgram init update view host
             |> Program.withConsoleTrace
             |> Program.run
 

@@ -10,6 +10,7 @@ module PeopleFormProgram =
         | SetFirstname of string
         | SetLastname of string
         | Save
+        | CmdPersistPerson of Person
 
     type Program(host: IProgramHost) =
         let initModel() =
@@ -17,16 +18,19 @@ module PeopleFormProgram =
                   { Firstname = ""
                     Lastname = "" } }
 
-        let init() = initModel()
+        let init() = initModel(), Cmd.none
+        
+        let persistPerson person =
+            PeopleRepository.addPerson person
+            Messenger.publish "Person added"
+            None
 
         let update msg model =
             match msg with
-            | SetFirstname v -> { model with NewPerson = { model.NewPerson with Firstname = v } }
-            | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }
-            | Save -> // TODO: Remove side-effect (through returning a cmd)
-                PeopleRepository.addPerson model.NewPerson
-                Messenger.publish "Person added"
-                model
+            | SetFirstname v -> { model with NewPerson = { model.NewPerson with Firstname = v } }, Cmd.none
+            | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }, Cmd.none
+            | Save -> model, Cmd.ofMsg (CmdPersistPerson model.NewPerson)
+            | CmdPersistPerson person -> model, Cmd.ofMsgOption (persistPerson person)
 
         let view() =
             [ "_firstnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Firstname) (fun v -> SetFirstname v)
@@ -34,7 +38,7 @@ module PeopleFormProgram =
               "_saveButton" |> Binding.msg Save ]
 
         do
-            Program.mkSimple init update view host
+            Program.mkProgram init update view host
             |> Program.withConsoleTrace
             |> Program.run
             |> ignore
