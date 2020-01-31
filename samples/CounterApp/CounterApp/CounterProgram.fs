@@ -44,7 +44,8 @@ module CounterProgram =
               "_twoWayFirstTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v)
               "_twoWaySecondTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v) ]
 
-        let runner =
+        do
             Program.mkSimple init update view host
             |> Program.withConsoleTrace
             |> Program.runWithStaticView
+            |> ignore

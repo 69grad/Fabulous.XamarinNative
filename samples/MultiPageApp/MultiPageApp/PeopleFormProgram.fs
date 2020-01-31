@@ -23,7 +23,7 @@ module PeopleFormProgram =
             match msg with
             | SetFirstname v -> { model with NewPerson = { model.NewPerson with Firstname = v } }
             | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }
-            | Save ->
+            | Save -> // TODO: Remove side-effect (through returning a cmd)
                 PeopleRepository.addPerson model.NewPerson
                 SimpleMessenger.publish "Person added"
                 model
@@ -33,7 +33,8 @@ module PeopleFormProgram =
               "_lastnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Lastname) (fun v -> SetLastname v)
               "_saveButton" |> Binding.msg Save ]
 
-        let runner =
+        do
             Program.mkSimple init update view host
             |> Program.withConsoleTrace
             |> Program.runWithStaticView
+            |> ignore

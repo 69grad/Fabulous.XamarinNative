@@ -14,7 +14,7 @@ module PeopleListProgram =
 
         let init() = initModel()
 
-        let update msg model =
+        let update msg _ =
             match msg with
             | Reset -> init()
 
