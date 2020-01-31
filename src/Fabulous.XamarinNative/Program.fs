@@ -1,4 +1,4 @@
-// Copyright 2018 Elmish and Fabulous contributors. See LICENSE.md for license.
+// Copyright 2018 Elmish and Fabulous contributors. See https://github.com/fsprojects/Fabulous/blob/master/LICENSE.md for license.
 namespace Fabulous.XamarinNative
 
 open System
