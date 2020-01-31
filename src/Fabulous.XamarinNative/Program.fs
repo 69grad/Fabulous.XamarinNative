@@ -5,14 +5,13 @@ open System
 open System.Diagnostics
 open Fabulous.XamarinNative
 
-
 [<AutoOpen>]
 module Values =
     let NoCmd<'a> : Cmd<'a> = Cmd.none
 
 type IStaticViewModelFactory =
-    abstract create: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool
-     -> StaticViewModel<'model, 'msg>
+    abstract create: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool
+     -> ViewModel<'model, 'msg>
 
 type public FactoryWeasel =
     [<DefaultValue>]
@@ -39,7 +38,7 @@ type Program<'model, 'msg, 'view> =
     { init: unit -> ('model * Cmd<'msg>)
       update: 'msg -> 'model -> ('model * Cmd<'msg>)
       subscribe: 'model -> Cmd<'msg>
-      host: IXamarinNativeProgramHost
+      host: IProgramHost
       view: 'view
       debug: bool
       onError: string * exn -> unit }
@@ -84,7 +83,7 @@ type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg,
         | None ->
             // Construct the binding context for the view model
             let factory = FactoryWeasel.StaticViewModelFactory.create
-            let viewModel: StaticViewModel<_, _> =
+            let viewModel: ViewModel<_, _> =
                 factory (updatedModel, dispatch, bindings, mainViewController, program.debug)
 
             viewModel.SetBindings bindings mainViewController updatedModel dispatch
@@ -110,7 +109,7 @@ type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg,
 
 
     [<DefaultValue>]
-    static val mutable private staticViewModelFactory: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IXamarinNativeProgramHost * bool -> StaticViewModel<'model, 'msg>
+    static val mutable private staticViewModelFactory: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool -> ViewModel<'model, 'msg>
 
     static member StaticViewModelFactory
         with set (value) = StaticViewProgramRunner<_, _>.staticViewModelFactory <- value
@@ -138,7 +137,7 @@ module Program =
 
     /// Typical program, new commands are produced by `init` and `update` along with the new state.
     let mkProgram (init: unit -> ('model * Cmd<'msg>)) (update: 'msg -> 'model -> ('model * Cmd<'msg>)) (view: 'view)
-        (host: IXamarinNativeProgramHost) =
+        (host: IProgramHost) =
         { init = init
           update = update
           view = view
@@ -149,7 +148,7 @@ module Program =
 
     /// Simple program that produces only new state with `init` and `update`.
     let mkSimple (init: unit -> 'model) (update: 'msg -> 'model -> 'model) (view: 'view)
-        (host: IXamarinNativeProgramHost) =
+        (host: IProgramHost) =
         mkProgram (fun arg -> init arg, Cmd.none) (fun msg model -> update msg model, Cmd.none) view host
 
     /// Typical program, new commands are produced discriminated unions returned by `init` and `update` along with the new state.

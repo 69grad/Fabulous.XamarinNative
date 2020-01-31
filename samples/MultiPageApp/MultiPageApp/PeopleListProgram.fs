@@ -9,7 +9,7 @@ module PeopleListProgram =
 
     type Msg = Reset
 
-    type Program(host: IXamarinNativeProgramHost) =
+    type Program(host: IProgramHost) =
         let initModel() = { People = PeopleRepository.people }
 
         let init() = initModel()

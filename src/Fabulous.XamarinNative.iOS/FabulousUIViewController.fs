@@ -12,4 +12,4 @@ type FabulousUIViewController<'t when 't: null>(handle: IntPtr) =
         base.ViewDidLoad()
         this.program <- Activator.CreateInstance(typeof<'t>, this) :?> 't
 
-    interface IXamarinNativeProgramHost
+    interface IProgramHost

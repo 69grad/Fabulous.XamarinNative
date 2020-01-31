@@ -18,7 +18,7 @@ module CounterProgram =
     type Element =
         { name: string }
 
-    type Program(host: IXamarinNativeProgramHost) =
+    type Program(host: IProgramHost) =
         let initModel() =
             { Count = 0
               Step = 3

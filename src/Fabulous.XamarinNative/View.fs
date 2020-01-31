@@ -7,13 +7,11 @@ open System.Collections.Generic
 open System.ComponentModel
 open System.Diagnostics
 
-/// The internal representation of a binding in the ViewModel for static Xaml
-
 type Command =
     { execute: Action<obj>
       canExecute: Func<obj, bool> }
 
-type IXamarinNativeProgramHost =
+type IProgramHost =
     interface
     end
 
@@ -22,20 +20,18 @@ type internal PropertyBinding<'model, 'msg> =
     | Set of Setter<'model, 'msg>
     | GetSet of Getter<'model> * Setter<'model, 'msg>
     | GetSetValidate of Getter<'model> * ValidSetter<'model, 'msg>
-    //| Cmd of Xamarin.Forms.Command
     | Cmd of Command
-    | SubModel of ('model -> obj) * (obj -> 'msg) * StaticViewModel<obj, obj>
+    | SubModel of ('model -> obj) * (obj -> 'msg) * ViewModel<obj, obj>
     | Map of Getter<'model> * (obj -> obj)
 
-
-and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IXamarinNativeProgramHost, debug: bool) as self =
+and [<AbstractClass>] ViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, host: IProgramHost, debug: bool) as self =
     inherit System.Dynamic.DynamicObject()
 
-    let props = new Dictionary<string, PropertyBinding<'model, 'msg>>()
+    let props = Dictionary<string, PropertyBinding<'model, 'msg>>()
 
     // Store all errors
-    let errors = new Dictionary<string, string list>()
-    let errorsChanged = new DelegateEvent<System.EventHandler<DataErrorsChangedEventArgs>>()
+    let errors = Dictionary<string, string list>()
+    let errorsChanged = DelegateEvent<EventHandler<DataErrorsChangedEventArgs>>()
 
     // Current model
     let mutable model: 'model = m
@@ -59,7 +55,7 @@ and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg ->
             Func<obj, bool>(fun cmdParameter ->
                 if debug then Trace.WriteLine(sprintf "view: checking if cmd %s can execute" name)
                 canExec cmdParameter model)
-        //Xamarin.Forms.Command (execute, canExecute)
+        
         { execute = execute
           canExecute = canExecute }
 
@@ -72,9 +68,8 @@ and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg ->
         | BindTwoWay(getter, setter) -> name, GetSet(getter, setter)
         | BindTwoWayValidation(getter, setter) -> name, GetSetValidate(getter, setter)
         | BindCmd(exec, canExec) -> name, Cmd(toCommand name (exec, canExec))
-        //| BindSubModel (ViewSubModel (_, _subName, getter, toMsg, propMap)) -> name, // SubModel (getter, toMsg, StaticViewModel<obj, obj>(getter model, toMsg >> dispatch, propMap, debug))
         | BindMap(getter, mapper) -> name, Map(getter, mapper)
-
+        | _ -> failwith "Not implemented yet"
 
     do
         propMap
@@ -84,7 +79,6 @@ and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg ->
 
     // Notifies the view of validation errors
     interface INotifyDataErrorInfo with
-
         [<CLIEvent>]
         member __.ErrorsChanged = errorsChanged.Publish
 
@@ -97,10 +91,9 @@ and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg ->
                 | false, _ -> []
             results :> System.Collections.IEnumerable
 
-    abstract bind: IXamarinNativeProgramHost -> string -> obj -> unit
-    abstract bindCmd: IXamarinNativeProgramHost -> string -> ('msg -> unit) -> 'msg -> unit
-    abstract bindValueChanged: IXamarinNativeProgramHost
-     -> 'model -> string -> ('msg -> unit) -> Setter<'model, 'msg> -> unit
+    abstract bind: IProgramHost -> string -> obj -> unit
+    abstract bindCmd: IProgramHost -> string -> ('msg -> unit) -> 'msg -> unit
+    abstract bindValueChanged: IProgramHost -> 'model -> string -> ('msg -> unit) -> Setter<'model, 'msg> -> unit
 
     /// Used internally to update the model. Only properties that have changed are updated.
     member __.UpdateModel (bindings: ViewBindings<'model, 'msg>) (other: 'model): unit =
@@ -115,8 +108,8 @@ and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg ->
             | BindMap(getter, _) ->
                 let value = getter other
                 let old = getter model
-                if value <> old then self.bind viewController bindingName value
-            | _ -> ()
+                if value <> old then self.bind host bindingName value
+            | _ -> failwith "Not implemented yet"
 
         model <- other
 
@@ -133,9 +126,7 @@ and [<AbstractClass>] StaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg ->
                 let value = getter updatedModel
                 self.bind viewController bindingName value
                 self.bindValueChanged viewController model bindingName dispatch setter
-            | BindTwoWayValidation(getter, setter) -> ()
-            | BindCmd(exec, canExec) ->
+            | BindCmd(exec, _) ->
                 let msg = exec viewController model
                 self.bindCmd viewController bindingName dispatch msg
-            | BindSubModel(ViewSubModel(page, name, getter, toMsg, bindings)) -> ()
-            | BindMap(getter, mapper) -> ()
+            | _ -> failwith "Not implemented yet"

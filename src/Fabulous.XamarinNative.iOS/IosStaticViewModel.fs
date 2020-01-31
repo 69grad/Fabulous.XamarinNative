@@ -1,11 +1,12 @@
 namespace Fabulous.XamarinNative
 
+open Fabulous.XamarinNative
 open System
 open System.Reflection
 open UIKit
  
-type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IXamarinNativeProgramHost, debug: bool)  =
-    inherit StaticViewModel<'model, 'msg>(m, dispatch, propMap, viewController, debug)
+type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IProgramHost, debug: bool)  =
+    inherit ViewModel<'model, 'msg>(m, dispatch, propMap, viewController, debug)
 
     let getUiElement (viewController: UIViewController) (elementName: string) =
         let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
@@ -14,7 +15,7 @@ type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap
         else
             null
     
-    override this.bind (viewController: IXamarinNativeProgramHost) (elementName: string) (value: obj) =
+    override this.bind (viewController: IProgramHost) (elementName: string) (value: obj) =
         let element = getUiElement (viewController :?> UIViewController) elementName
         match element with
         | :? UILabel as label -> label.Text <- value.ToString()
@@ -24,14 +25,14 @@ type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap
             propInfo.SetValue(viewController, value)
         | _ -> ()
         
-    override this.bindCmd (viewController: IXamarinNativeProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
+    override this.bindCmd (viewController: IProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
         let element = getUiElement (viewController :?> UIViewController) elementName
         match element with
         | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
         | _ -> ()
         ()
         
-    override this.bindValueChanged (viewController: IXamarinNativeProgramHost) (model: 'model) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
+    override this.bindValueChanged (viewController: IProgramHost) (model: 'model) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
         let element = getUiElement (viewController :?> UIViewController) elementName
         match element with
         | :? UITextField as textField ->
@@ -53,4 +54,4 @@ type IosStaticViewModelFactory() =
                 dispatch,
                 bindings,
                 host,
-                debug) :> StaticViewModel<_,_>
+                debug) :> ViewModel<_,_>

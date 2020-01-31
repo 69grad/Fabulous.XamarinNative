@@ -11,7 +11,7 @@ module PeopleFormProgram =
         | SetLastname of string
         | Save
 
-    type Program(host: IXamarinNativeProgramHost) =
+    type Program(host: IProgramHost) =
         let initModel() =
             { NewPerson =
                   { Firstname = ""
