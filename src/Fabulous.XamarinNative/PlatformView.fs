@@ -130,3 +130,15 @@ and [<AbstractClass>] PlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> un
                 let msg = exec viewController model
                 self.bindCmd viewController bindingName dispatch msg
             | _ -> failwith "Not implemented yet"
+
+type IPlatformViewFactory =
+    abstract create:
+        'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool -> PlatformView<'model, 'msg>
+
+type public PlatformViewFactory =
+    [<FSharp.Core.DefaultValue>]
+    static val mutable private instance : IPlatformViewFactory
+
+    static member Instance
+        with set (value) = PlatformViewFactory.instance <- value
+        and get() = PlatformViewFactory.instance
