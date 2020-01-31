@@ -27,7 +27,7 @@ type Program<'model, 'msg, 'view> =
       onError: string * exn -> unit }
 
 /// Starts the Elmish dispatch loop for the page with the given Elmish program
-type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> ViewBinding<'model, 'msg> list>) as self =
+type public ProgramRunner<'model, 'msg>(program: Program<'model, 'msg, unit -> ViewBinding<'model, 'msg> list>) =
 
     do Debug.WriteLine "run: computing initial model"
 
@@ -163,23 +163,7 @@ module Program =
     let withDebug program =
         { program with debug = true }
 
-    /// Add navigation to an application, used only for Half-Elmish Static View.
-    let withNavigation (program: Program<_, _, _>) =
-        { init = program.init
-          update = program.update
-          subscribe = program.subscribe
-          onError = program.onError
-          debug = program.debug
-          host = program.host
-          view =
-              (fun () ->
-              let page, contents, navMap = program.view()
-              Debug.WriteLine "setting global navigation map"
-              // TODO: modify the Elmish framework we use to remove this global state and pass it into all commands??
-              //Nav.globalNavMap <- (navMap |> List.map (fun (tg, page) -> ((tg :> System.IComparable), page)) |> Map.ofList)
-              page, contents) }
-
-    let runWithStaticView (program: Program<'model, 'msg, unit -> ViewBinding<'model, 'msg> list>) =
+    let run (program: Program<'model, 'msg, unit -> ViewBinding<'model, 'msg> list>) =
         let program =
             { init = program.init
               update = program.update
@@ -188,7 +172,7 @@ module Program =
               debug = program.debug
               view = program.view
               host = program.host }
-        StaticViewProgramRunner(program)
+        ProgramRunner(program)
 
     /// Trace all the updates to the console
     let withConsoleTrace (program: Program<'model, 'msg, _>) =

@@ -24,7 +24,7 @@ module PeopleListProgram =
         let runner =
             Program.mkSimple init update view host
             |> Program.withConsoleTrace
-            |> Program.runWithStaticView
+            |> Program.run
 
         do
             Messenger.subscribe (fun _ -> runner.Dispatch Reset)

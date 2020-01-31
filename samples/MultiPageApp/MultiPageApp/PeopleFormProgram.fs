@@ -36,5 +36,5 @@ module PeopleFormProgram =
         do
             Program.mkSimple init update view host
             |> Program.withConsoleTrace
-            |> Program.runWithStaticView
+            |> Program.run
             |> ignore

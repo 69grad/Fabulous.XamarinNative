@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleDisplayName</key>
-    <string>MultiPageApp.iOS</string>
+    <string>MultiPageApp</string>
     <key>CFBundleIdentifier</key>
-    <string>com.klausmoster.MultiPageApp</string>
+    <string>cde.69grad.multipageapp</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
     <key>CFBundleVersion</key>
