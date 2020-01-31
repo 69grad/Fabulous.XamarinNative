@@ -1,9 +1,9 @@
 namespace MultiPageApp
 
-module PeopleRepo =
+module PeopleRepository =
     let mutable people =
-        [| { Firstname = "Max"
-             Lastname = "Mustermann" } |]
+        [| { Firstname = "Joe"
+             Lastname = "Average" } |]
 
     let addPerson (p: Person) =
         people <- Array.append people [| p |]

@@ -2,7 +2,7 @@
 
 open Fabulous.XamarinNative
 
-module PeopleForm = 
+module PeopleFormProgram = 
     type Model =
         { NewPerson: Person }
 
@@ -24,7 +24,7 @@ module PeopleForm =
             | SetFirstname v -> { model with NewPerson = { model.NewPerson with Firstname = v } }
             | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }
             | Save ->
-                PeopleRepo.addPerson model.NewPerson
+                PeopleRepository.addPerson model.NewPerson
                 SimpleMessenger.publish "Person added"
                 model
 

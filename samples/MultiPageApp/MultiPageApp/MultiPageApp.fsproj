@@ -12,9 +12,9 @@
 
     <ItemGroup>
         <Compile Include="Common.fs" />
-        <Compile Include="PeopleRepo.fs" />
-        <Compile Include="PeopleList.fs" />
-        <Compile Include="PeopleForm.fs" />
+        <Compile Include="PeopleRepository.fs" />
+        <Compile Include="PeopleListProgram.fs" />
+        <Compile Include="PeopleFormProgram.fs" />
     </ItemGroup>
 
     <ItemGroup>

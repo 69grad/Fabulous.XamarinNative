@@ -2,7 +2,7 @@
 
 open Fabulous.XamarinNative
 
-module Counter =
+module CounterProgram =
     type Model =
         { Count: int
           Step: int

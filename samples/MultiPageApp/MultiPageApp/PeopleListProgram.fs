@@ -2,7 +2,7 @@
 
 open Fabulous.XamarinNative
 
-module PeopleList =
+module PeopleListProgram =
 
     type Model =
         { People: Person [] }
@@ -11,7 +11,7 @@ module PeopleList =
 
     type Program(host: IXamarinNativeProgramHost) =
 
-        let initModel() = { People = PeopleRepo.people }
+        let initModel() = { People = PeopleRepository.people }
 
         let init() = initModel()
 
