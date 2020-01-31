@@ -62,10 +62,10 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <None Include="packages.config" />
-    <Compile Include="UIFabulousViewController.fs" />
-    <Compile Include="UIFabulousTableViewController.fs" />
+    <Compile Include="FabulousUIViewController.fs" />
+    <Compile Include="FabulousUITableViewController.fs" />
     <Compile Include="IosStaticViewModel.fs" />
-    <Compile Include="Setup.fs" />
+    <Compile Include="FabulousSetup.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj">

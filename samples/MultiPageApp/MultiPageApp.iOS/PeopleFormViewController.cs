@@ -5,7 +5,7 @@ using Foundation;
 namespace MultiPageApp.iOS
 {
     public partial class PeopleFormViewController
-        : UIFabulousViewController<PeopleFormProgram.Program>
+        : FabulousUIViewController<PeopleFormProgram.Program>
     {
         public PeopleFormViewController(IntPtr handle) : base(handle)
         {

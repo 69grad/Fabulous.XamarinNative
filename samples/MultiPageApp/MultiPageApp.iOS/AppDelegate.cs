@@ -13,8 +13,7 @@ namespace MultiPageApp.iOS
         [Export("application:didFinishLaunchingWithOptions:")]
         public bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            // Initialize Fabulous.XamarinNative
-            FabulousIosSetup.initialize();
+            FabulousSetup.initialize();
 
             return true;
         }

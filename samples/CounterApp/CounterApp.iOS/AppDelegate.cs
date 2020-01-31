@@ -12,7 +12,7 @@ namespace CounterApp.iOS
         [Export("application:didFinishLaunchingWithOptions:")]
         public bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            FabulousIosSetup.initialize();
+            FabulousSetup.initialize();
 
             return true;
         }

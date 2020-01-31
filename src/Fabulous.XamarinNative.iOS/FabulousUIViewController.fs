@@ -3,7 +3,7 @@ namespace Fabulous.XamarinNative
 open UIKit
 open System
 
-type UIFabulousViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
+type FabulousUIViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
     inherit UIViewController(handle)
     
     let mutable staticViewController: 't = null

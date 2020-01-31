@@ -4,7 +4,7 @@ using Fabulous.XamarinNative;
 namespace MultiPageApp.iOS
 {
     public partial class PeopleListViewController
-        : UIFabulousTableViewController<PeopleListProgram.Program>
+        : FabulousUITableViewController<PeopleListProgram.Program>
     {
         private Person[] _people;
 
