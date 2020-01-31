@@ -8,7 +8,7 @@ module Messenger =
     let subscribe (action: string -> unit) =
         subscribers.Add action
         
-    // TODO: Implement an unscrubsribe function in order to prevent memory leaks
+    // TODO: Implement an unsubscribe function in order to prevent memory leaks
 
     let publish (message: string) =
         subscribers |> Seq.iter (fun subscriber -> subscriber (message))
