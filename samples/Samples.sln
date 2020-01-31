@@ -21,6 +21,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CounterApp", "CounterApp\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CounterApp.iOS", "CounterApp\CounterApp.iOS\CounterApp.iOS.csproj", "{EBA3B31E-5C8F-45DE-B088-7EB9BFE0B838}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Fabulous.XamarinNative.Droid", "..\src\Fabulous.XamarinNative.Droid\Fabulous.XamarinNative.Droid.fsproj", "{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -77,6 +79,14 @@ Global
 		{EBA3B31E-5C8F-45DE-B088-7EB9BFE0B838}.Debug|iPhone.Build.0 = Debug|iPhone
 		{EBA3B31E-5C8F-45DE-B088-7EB9BFE0B838}.Release|iPhone.ActiveCfg = Release|iPhone
 		{EBA3B31E-5C8F-45DE-B088-7EB9BFE0B838}.Release|iPhone.Build.0 = Release|iPhone
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CFF38367-B762-4807-8E8B-F70207D8BE3B} = {AF334946-5EEE-43BD-A93C-AED1A7BF2057}
@@ -87,5 +97,6 @@ Global
 		{96740EA6-3259-4765-95B6-E01FB021BFF6} = {90B43E6E-BB85-44D7-AAEF-CC75E13CFC76}
 		{BC1048C4-DCFB-4B5E-BF71-F3AD131BD07F} = {96740EA6-3259-4765-95B6-E01FB021BFF6}
 		{EBA3B31E-5C8F-45DE-B088-7EB9BFE0B838} = {96740EA6-3259-4765-95B6-E01FB021BFF6}
+		{691032F5-DA5F-43FF-AC06-7841B8D3CFF5} = {AF334946-5EEE-43BD-A93C-AED1A7BF2057}
 	EndGlobalSection
 EndGlobal
