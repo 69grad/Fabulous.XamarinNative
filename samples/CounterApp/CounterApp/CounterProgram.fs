@@ -24,15 +24,15 @@ module CounterProgram =
               Step = 3
               Name = "FSharp" }
 
-        let init() = initModel()
+        let init() = initModel(), Cmd.none
 
         let update msg model =
             match msg with
-            | Increment -> { model with Count = model.Count + model.Step }
-            | Decrement -> { model with Count = model.Count - model.Step }
+            | Increment -> { model with Count = model.Count + model.Step }, Cmd.none
+            | Decrement -> { model with Count = model.Count - model.Step }, Cmd.none
             | Reset -> init()
-            | SetStep n -> { model with Step = n }
-            | SetName n -> { model with Name = n }
+            | SetStep n -> { model with Step = n }, Cmd.none
+            | SetName n -> { model with Name = n }, Cmd.none
 
         let view() =
             [ "_incrementButton" |> Binding.msg Increment
@@ -45,7 +45,7 @@ module CounterProgram =
               "_twoWaySecondTextField" |> Binding.twoWay (fun m -> m.Name) (fun v -> SetName v) ]
 
         do
-            Program.mkSimple init update view host
+            Program.mkProgram init update view host
             |> Program.withConsoleTrace
             |> Program.run
             |> ignore
