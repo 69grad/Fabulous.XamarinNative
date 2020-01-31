@@ -1,3 +1,5 @@
-module MultiPageApp.Common
+namespace MultiPageApp
 
-type Person = { Firstname: string; Lastname: string }
+type Person =
+    { Firstname: string
+      Lastname: string }

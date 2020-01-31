@@ -116,9 +116,6 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
@@ -127,18 +124,18 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
-    <Compile Include="SceneDelegate.cs" />
-    <Compile Include="ViewController\AddPersonViewController.cs" />
-    <Compile Include="ViewController\AddPersonViewController.designer.cs">
+    <Compile Include="AddPersonViewController.cs" />
+    <Compile Include="AddPersonViewController.designer.cs">
       <DependentUpon>AddPersonViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewController\PeopleTableViewDataSource.cs" />
-    <Compile Include="ViewController\PeopleViewController.cs" />
-    <Compile Include="ViewController\PeopleViewController.designer.cs">
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="PeopleTableViewDataSource.cs" />
+    <Compile Include="PeopleViewController.cs" />
+    <Compile Include="PeopleViewController.designer.cs">
       <DependentUpon>PeopleViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SceneDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj">

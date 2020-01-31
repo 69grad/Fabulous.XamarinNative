@@ -1,44 +1,35 @@
-﻿namespace PeopleStaticViewModel
+﻿namespace MultiPageApp
 
 open Fabulous.XamarinNative
-open MultiPageApp
-open MultiPageApp.Common
 
-type Model =
-  { People : Person[] }
+module PeopleStaticViewModel =
 
-type Msg =
-    | Reset
+    type Model =
+        { People: Person [] }
 
-type PeopleStaticViewModel (host : IXamarinNativeProgramHost) =
+    type Msg = Reset
 
-    let initModel () = {
-        People = PeopleRepo.people;
-    }
+    type PeopleStaticViewModel(host: IXamarinNativeProgramHost) =
 
-    let init () = initModel ()
+        let initModel() = { People = PeopleRepo.people }
 
-    let update msg model =
-        match msg with
-        | Reset -> init ()
+        let init() = initModel()
 
-    let view () =
+        let update msg model =
+            match msg with
+            | Reset -> init()
 
-        [
-            "People" |> Binding.oneWay (fun m -> m.People)
-        ]
+        let view() =
+            [ "People" |> Binding.oneWay (fun m -> m.People) ]
 
-    let runner =
-        Program.mkSimple init update view host
-        |> Program.withConsoleTrace
-        |> Program.runWithStaticView
+        let runner =
+            Program.mkSimple init update view host
+            |> Program.withConsoleTrace
+            |> Program.runWithStaticView
 
 
-    do
-        let messageReceived = System.Action<string>(fun message ->
-            runner.Dispatch Reset
-        )
+        do
+            let messageReceived = System.Action<string>(fun message -> runner.Dispatch Reset)
+            SimpleMessenger.subscribe messageReceived
 
-        SimpleMessenger.subscribe messageReceived
-
-    interface IStaticViewController
+        interface IStaticViewController
