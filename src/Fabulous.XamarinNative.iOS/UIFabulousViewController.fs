@@ -1,4 +1,4 @@
-namespace Fabulous.StaticView
+namespace Fabulous.XamarinNative.iOS
 
 open UIKit
 open System

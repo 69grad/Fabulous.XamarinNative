@@ -1,5 +1,5 @@
 ﻿using System;
-using Fabulous.StaticView;
+using Fabulous.XamarinNative.iOS;
 using MultiPageApp.iOS.ViewController;
 
 namespace MultiPageApp.iOS
