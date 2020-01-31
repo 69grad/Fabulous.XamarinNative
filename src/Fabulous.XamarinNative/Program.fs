@@ -11,7 +11,7 @@ module Values =
 
 type IStaticViewModelFactory =
     abstract create: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool
-     -> ViewModel<'model, 'msg>
+     -> PlatformView<'model, 'msg>
 
 type public FactoryWeasel =
     [<DefaultValue>]
@@ -83,7 +83,7 @@ type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg,
         | None ->
             // Construct the binding context for the view model
             let factory = FactoryWeasel.StaticViewModelFactory.create
-            let viewModel: ViewModel<_, _> =
+            let viewModel: PlatformView<_, _> =
                 factory (updatedModel, dispatch, bindings, mainViewController, program.debug)
 
             viewModel.SetBindings bindings mainViewController updatedModel dispatch
@@ -109,7 +109,7 @@ type public StaticViewProgramRunner<'model, 'msg>(program: Program<'model, 'msg,
 
 
     [<DefaultValue>]
-    static val mutable private staticViewModelFactory: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool -> ViewModel<'model, 'msg>
+    static val mutable private staticViewModelFactory: 'model * ('msg -> unit) * ViewBindings<'model, 'msg> * IProgramHost * bool -> PlatformView<'model, 'msg>
 
     static member StaticViewModelFactory
         with set (value) = StaticViewProgramRunner<_, _>.staticViewModelFactory <- value

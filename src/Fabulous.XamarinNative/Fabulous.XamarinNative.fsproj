@@ -9,7 +9,7 @@
         <Compile Include="Cmd.fs" />
         <Compile Include="Messenger.fs" />
         <Compile Include="Binding.fs" />
-        <Compile Include="View.fs" />
+        <Compile Include="PlatformView.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 </Project>

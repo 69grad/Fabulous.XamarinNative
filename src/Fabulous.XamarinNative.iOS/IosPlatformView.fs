@@ -5,8 +5,8 @@ open System
 open System.Reflection
 open UIKit
  
-type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IProgramHost, debug: bool)  =
-    inherit ViewModel<'model, 'msg>(m, dispatch, propMap, viewController, debug)
+type IosPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IProgramHost, debug: bool)  =
+    inherit PlatformView<'model, 'msg>(m, dispatch, propMap, viewController, debug)
 
     let getUiElement (viewController: UIViewController) (elementName: string) =
         let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.NonPublic ||| BindingFlags.Instance)
@@ -23,13 +23,13 @@ type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap
         | null ->
             let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
             propInfo.SetValue(viewController, value)
-        | _ -> ()
+        | _ -> failwith "Not implemented yet"
         
     override this.bindCmd (viewController: IProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
         let element = getUiElement (viewController :?> UIViewController) elementName
         match element with
-        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun args -> dispatch msg)
-        | _ -> ()
+        | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun _ -> dispatch msg)
+        | _ -> failwith "Not implemented yet"
         ()
         
     override this.bindValueChanged (viewController: IProgramHost) (model: 'model) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
@@ -44,14 +44,14 @@ type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap
                 let value = int(slider.Value + 0.5f)
                 dispatch <| setter value model)
             , UIControlEvent.ValueChanged)
-        | _ -> ()
+        | _ -> failwith "Not implemented yet"
 
 type IosStaticViewModelFactory() =
     interface IStaticViewModelFactory with
         member this.create (updatedModel, dispatch, bindings, host, debug) =
-            IosStaticViewModel(
+            IosPlatformView(
                 updatedModel,
                 dispatch,
                 bindings,
                 host,
-                debug) :> ViewModel<_,_>
+                debug) :> PlatformView<_,_>

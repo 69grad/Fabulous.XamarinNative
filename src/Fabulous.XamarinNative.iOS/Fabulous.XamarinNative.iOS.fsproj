@@ -64,7 +64,7 @@
     <None Include="packages.config" />
     <Compile Include="FabulousUIViewController.fs" />
     <Compile Include="FabulousUITableViewController.fs" />
-    <Compile Include="IosStaticViewModel.fs" />
+    <Compile Include="IosPlatformView.fs" />
     <Compile Include="FabulousSetup.fs" />
   </ItemGroup>
   <ItemGroup>

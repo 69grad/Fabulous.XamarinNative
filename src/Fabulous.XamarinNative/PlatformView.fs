@@ -21,10 +21,10 @@ type internal PropertyBinding<'model, 'msg> =
     | GetSet of Getter<'model> * Setter<'model, 'msg>
     | GetSetValidate of Getter<'model> * ValidSetter<'model, 'msg>
     | Cmd of Command
-    | SubModel of ('model -> obj) * (obj -> 'msg) * ViewModel<obj, obj>
+    | SubModel of ('model -> obj) * (obj -> 'msg) * PlatformView<obj, obj>
     | Map of Getter<'model> * (obj -> obj)
 
-and [<AbstractClass>] ViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, host: IProgramHost, debug: bool) as self =
+and [<AbstractClass>] PlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, host: IProgramHost, debug: bool) as self =
     inherit System.Dynamic.DynamicObject()
 
     let props = Dictionary<string, PropertyBinding<'model, 'msg>>()
