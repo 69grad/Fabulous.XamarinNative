@@ -37,5 +37,3 @@ module PeopleFormProgram =
             Program.mkSimple init update view host
             |> Program.withConsoleTrace
             |> Program.runWithStaticView
-
-        interface IStaticViewController

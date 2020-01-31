@@ -10,7 +10,6 @@ module PeopleListProgram =
     type Msg = Reset
 
     type Program(host: IXamarinNativeProgramHost) =
-
         let initModel() = { People = PeopleRepository.people }
 
         let init() = initModel()
@@ -27,9 +26,6 @@ module PeopleListProgram =
             |> Program.withConsoleTrace
             |> Program.runWithStaticView
 
-
         do
             let messageReceived = System.Action<string>(fun message -> runner.Dispatch Reset)
             SimpleMessenger.subscribe messageReceived
-
-        interface IStaticViewController

@@ -11,6 +11,7 @@ open System.Diagnostics
 
 type Command = { execute: Action<obj>; canExecute: Func<obj, bool> }
 
+type IXamarinNativeProgramHost = interface end
 
 type internal PropertyBinding<'model, 'msg> =
     | Get of Getter<'model>

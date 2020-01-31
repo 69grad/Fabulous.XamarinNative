@@ -6,7 +6,6 @@
 
     <ItemGroup>
         <Compile Include="Internal.fs" />
-        <Compile Include="Types.fs" />
         <Compile Include="Cmd.fs" />
         <Compile Include="Messenger.fs" />
         <Compile Include="Binding.fs" />
