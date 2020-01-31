@@ -1,8 +1,7 @@
-namespace Fabulous.XamarinNative.iOS
+namespace Fabulous.XamarinNative
 
 open System
 open System.Reflection
-open Fabulous.XamarinNative
 open UIKit
  
 type IosStaticViewModel<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IXamarinNativeProgramHost, debug: bool)  =

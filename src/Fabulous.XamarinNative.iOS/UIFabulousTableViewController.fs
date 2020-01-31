@@ -1,8 +1,7 @@
-namespace Fabulous.XamarinNative.iOS
+namespace Fabulous.XamarinNative
 
 open UIKit
 open System
-open Fabulous.XamarinNative
 
 type UIFabulousTableViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
     inherit UITableViewController(handle)

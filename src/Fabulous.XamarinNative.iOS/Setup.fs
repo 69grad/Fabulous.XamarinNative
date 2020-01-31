@@ -1,4 +1,4 @@
-namespace Fabulous.XamarinNative.iOS
+namespace Fabulous.XamarinNative
 
     module FabulousIosSetup =
         let initialize() =

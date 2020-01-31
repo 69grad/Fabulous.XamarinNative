@@ -1,5 +1,5 @@
 ﻿using System;
-using Fabulous.XamarinNative.iOS;
+using Fabulous.XamarinNative;
 
 namespace CounterApp.iOS
 {

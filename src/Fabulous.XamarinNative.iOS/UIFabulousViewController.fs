@@ -1,8 +1,7 @@
-namespace Fabulous.XamarinNative.iOS
+namespace Fabulous.XamarinNative
 
 open UIKit
 open System
-open Fabulous.XamarinNative
 
 type UIFabulousViewController<'t when 't :> IStaticViewController and 't : null>(handle:IntPtr) =
     inherit UIViewController(handle)
