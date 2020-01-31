@@ -1,5 +1,5 @@
 ﻿// Copyright 2018 Fabulous contributors. See LICENSE.md for license.
-namespace Fabulous.StaticView
+namespace Fabulous.XamarinNative
 
 open System;
 

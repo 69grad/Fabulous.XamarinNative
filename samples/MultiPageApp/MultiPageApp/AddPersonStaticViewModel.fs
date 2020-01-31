@@ -1,7 +1,5 @@
 ﻿namespace AddPersonStaticViewModel
 
-open Fabulous.Core
-open Fabulous.StaticView
 open Fabulous.XamarinNative
 open MultiPageApp
 open Common

@@ -1,4 +1,4 @@
-module Fabulous.XamarinNative
+namespace Fabulous.XamarinNative
 
 type IXamarinNativeProgramHost =
     interface end

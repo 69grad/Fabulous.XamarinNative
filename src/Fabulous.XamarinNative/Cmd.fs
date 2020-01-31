@@ -1,5 +1,5 @@
 ﻿// Copyright 2018 Elmish and Fabulous contributors. See LICENSE.md for license.
-namespace Fabulous.Core
+namespace Fabulous.XamarinNative
 
 /// Dispatch - feed new message into the processing loop
 type Dispatch<'msg> = 'msg -> unit

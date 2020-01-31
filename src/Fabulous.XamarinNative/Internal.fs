@@ -1,4 +1,4 @@
-namespace Fabulous
+namespace Fabulous.XamarinNative
 
 open System.Runtime.CompilerServices
 

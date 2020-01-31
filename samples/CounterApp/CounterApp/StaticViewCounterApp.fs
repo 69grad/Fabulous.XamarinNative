@@ -1,7 +1,5 @@
 ﻿namespace CounterApp
 
-open Fabulous.Core
-open Fabulous.StaticView
 open Fabulous.XamarinNative
 
 type Model =

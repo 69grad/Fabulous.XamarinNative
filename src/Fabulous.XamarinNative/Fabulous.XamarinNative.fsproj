@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <RootNamespace>Fabulous.StaticView.iOS</RootNamespace>
+        <RootNamespace>Fabulous.XamarinNative</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Include="Internal.fs" />
         <Compile Include="Types.fs" />
-        <Compile Include="ElmishCmd.fs" />
-        <Compile Include="ElmishProgram.fs" />
-        <Compile Include="SimpleMessenger.fs" />
-        <Compile Include="StaticViewBinding.fs" />
-        <Compile Include="StaticViewModel.fs" />
-        <Compile Include="StaticViewProgram.fs" />
+        <Compile Include="Cmd.fs" />
+        <Compile Include="Messenger.fs" />
+        <Compile Include="Binding.fs" />
+        <Compile Include="View.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 </Project>
