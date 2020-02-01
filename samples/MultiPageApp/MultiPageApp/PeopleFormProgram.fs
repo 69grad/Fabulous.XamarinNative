@@ -8,8 +8,8 @@ module PeopleFormProgram =
           LastName: string }
 
     type Msg =
-        | SetFirstname of string
-        | SetLastname of string
+        | FirstNameSet of string
+        | LastNameSet of string
         | Save
         | CmdPersistPerson
 
@@ -28,14 +28,14 @@ module PeopleFormProgram =
 
         let update msg (model:Model) =
             match msg with
-            | SetFirstname v -> { model with FirstName = v }, Cmd.none
-            | SetLastname v -> { model with LastName = v }, Cmd.none
+            | FirstNameSet v -> { model with FirstName = v }, Cmd.none
+            | LastNameSet v -> { model with LastName = v }, Cmd.none
             | Save -> model, Cmd.ofMsg CmdPersistPerson
             | CmdPersistPerson -> model, Cmd.ofMsgOption (persistPerson model)
 
         let view() =
-            [ "_firstnameTextField" |> Binding.twoWay (fun m -> m.FirstName) (fun v -> SetFirstname v)
-              "_lastnameTextField" |> Binding.twoWay (fun m -> m.LastName) (fun v -> SetLastname v)
+            [ "_firstnameTextField" |> Binding.twoWay (fun m -> m.FirstName) (fun v -> FirstNameSet v)
+              "_lastnameTextField" |> Binding.twoWay (fun m -> m.LastName) (fun v -> LastNameSet v)
               "_saveButton" |> Binding.msg Save ]
 
         do
