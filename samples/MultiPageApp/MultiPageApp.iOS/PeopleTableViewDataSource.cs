@@ -28,7 +28,7 @@ namespace MultiPageApp.iOS
 
             var person = _people[indexPath.Row];
 
-            cell.TextLabel.Text = $"{person.Firstname} {person.Lastname}";
+            cell.TextLabel.Text = $"{person.FirstName} {person.LastName}";
             return cell;
         }
     }

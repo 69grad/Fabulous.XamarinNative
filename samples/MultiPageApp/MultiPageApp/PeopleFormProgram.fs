@@ -15,8 +15,8 @@ module PeopleFormProgram =
     type Program(host: IProgramHost) =
         let initModel() =
             { NewPerson =
-                  { Firstname = ""
-                    Lastname = "" } }
+                  { FirstName = ""
+                    LastName = "" } }
 
         let init() = initModel(), Cmd.none
         
@@ -27,14 +27,14 @@ module PeopleFormProgram =
 
         let update msg model =
             match msg with
-            | SetFirstname v -> { model with NewPerson = { model.NewPerson with Firstname = v } }, Cmd.none
-            | SetLastname v -> { model with NewPerson = { model.NewPerson with Lastname = v } }, Cmd.none
+            | SetFirstname v -> { model with NewPerson = { model.NewPerson with FirstName = v } }, Cmd.none
+            | SetLastname v -> { model with NewPerson = { model.NewPerson with LastName = v } }, Cmd.none
             | Save -> model, Cmd.ofMsg (CmdPersistPerson model.NewPerson)
             | CmdPersistPerson person -> model, Cmd.ofMsgOption (persistPerson person)
 
         let view() =
-            [ "_firstnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Firstname) (fun v -> SetFirstname v)
-              "_lastnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.Lastname) (fun v -> SetLastname v)
+            [ "_firstnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.FirstName) (fun v -> SetFirstname v)
+              "_lastnameTextField" |> Binding.twoWay (fun m -> m.NewPerson.LastName) (fun v -> SetLastname v)
               "_saveButton" |> Binding.msg Save ]
 
         do

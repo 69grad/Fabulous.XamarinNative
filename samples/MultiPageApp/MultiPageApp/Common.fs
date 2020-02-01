@@ -1,5 +1,5 @@
 namespace MultiPageApp
 
 type Person =
-    { Firstname: string
-      Lastname: string }
+    { FirstName: string
+      LastName: string }
