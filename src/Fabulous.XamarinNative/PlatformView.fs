@@ -113,22 +113,22 @@ and [<AbstractClass>] PlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> un
 
         model <- other
 
-    member __.SetBindings (bindings: ViewBindings<'model, 'msg>) viewController (updatedModel: 'model)
+    member __.SetBindings (bindings: ViewBindings<'model, 'msg>) host (updatedModel: 'model)
            (dispatch: 'msg -> unit) =
         for (bindingName, binding) in bindings do
             match binding with
             | Bind getter ->
                 let value = getter updatedModel
-                self.bind viewController bindingName value
+                self.bind host bindingName value
             | BindOneWayToSource setter ->
-                self.bindValueChanged viewController model bindingName dispatch setter
+                self.bindValueChanged host model bindingName dispatch setter
             | BindTwoWay(getter, setter) ->
                 let value = getter updatedModel
-                self.bind viewController bindingName value
-                self.bindValueChanged viewController model bindingName dispatch setter
+                self.bind host bindingName value
+                self.bindValueChanged host model bindingName dispatch setter
             | BindCmd(exec, _) ->
-                let msg = exec viewController model
-                self.bindCmd viewController bindingName dispatch msg
+                let msg = exec host model
+                self.bindCmd host bindingName dispatch msg
             | _ -> failwith "Not implemented yet"
 
 type IPlatformViewFactory =
