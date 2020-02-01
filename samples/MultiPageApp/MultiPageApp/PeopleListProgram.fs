@@ -7,16 +7,20 @@ module PeopleListProgram =
     type Model =
         { People: Person [] }
 
-    type Msg = Reset
+    type Msg =
+        | PeopleLoaded of Person []
+        | CmdLoadPeople
 
     type Program(host: IProgramHost) =
-        let initModel() = { People = PeopleRepository.people }
+        let loadPeople() =
+            PeopleLoaded(PeopleRepository.people)
 
-        let init() = initModel(), Cmd.none
+        let init() = { People = [||] }, Cmd.ofMsg CmdLoadPeople
 
-        let update msg _ =
+        let update msg model =
             match msg with
-            | Reset -> init()
+            | PeopleLoaded people -> { model with People = people }, Cmd.none
+            | CmdLoadPeople -> model, Cmd.ofMsg (loadPeople())
 
         let view() =
             [ "People" |> Binding.oneWay (fun m -> m.People) ]
@@ -26,5 +30,4 @@ module PeopleListProgram =
             |> Program.withConsoleTrace
             |> Program.run
 
-        do
-            Messenger.subscribe (fun _ -> runner.Dispatch Reset)
+        do Messenger.subscribe (fun _ -> runner.Dispatch CmdLoadPeople)

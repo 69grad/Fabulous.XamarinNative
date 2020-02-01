@@ -5,5 +5,5 @@ module PeopleRepository =
         [| { FirstName = "Joe"
              LastName = "Average" } |]
 
-    let addPerson (p: Person) =
-        people <- Array.append people [| p |]
+    let addPerson person =
+        people <- people |> Array.append [| person |]
