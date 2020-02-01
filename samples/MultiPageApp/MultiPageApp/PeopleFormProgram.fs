@@ -14,7 +14,6 @@ module PeopleFormProgram =
         | CmdPersistPerson
 
     type Program(host: IProgramHost) =
-
         let init() =
             { FirstName = ""
               LastName = "" }, Cmd.none
