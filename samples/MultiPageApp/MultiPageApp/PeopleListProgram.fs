@@ -3,7 +3,6 @@
 open Fabulous.XamarinNative
 
 module PeopleListProgram =
-
     type Model =
         { People: Person [] }
 
