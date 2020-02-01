@@ -23,13 +23,13 @@ type IosPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: V
         | null ->
             let propInfo = host.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
             propInfo.SetValue(host, value)
-        | _ -> failwith "Not implemented yet"
+        | _ -> ()
         
     override this.bindCmd (host: IProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
         let element = getUiElement (host :?> UIViewController) elementName
         match element with
         | :? UIControl as uiControl -> uiControl.TouchDown.Add(fun _ -> dispatch msg)
-        | _ -> failwith "Not implemented yet"
+        | _ -> ()
         ()
         
     override this.bindValueChanged (host: IProgramHost) (model: 'model) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
@@ -44,4 +44,4 @@ type IosPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: V
                 let value = int(slider.Value + 0.5f)
                 dispatch <| setter value model)
             , UIControlEvent.ValueChanged)
-        | _ -> failwith "Not implemented yet"
+        | _ -> ()
