@@ -1,13 +1,39 @@
 namespace Fabulous.XamarinNative
+open System.Reflection
+open Android.App
+open Android.Widget
 
 type DroidPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: ViewBindings<'model, 'msg>, viewController: IProgramHost, debug: bool)  =
     inherit PlatformView<'model, 'msg>(m, dispatch, propMap, viewController, debug)
+
+    let getUiElement (viewController: Activity) (elementName: string) =
+        let id = viewController.Resources.GetIdentifier(elementName, "id", viewController.PackageName)
+        viewController.FindViewById(id)
     
     override this.bind (viewController: IProgramHost) (elementName: string) (value: obj) =
-        failwith "TODO"
+        let element = getUiElement (viewController :?> Activity) elementName
+        match element with
+        | :? TextView as label -> label.Text <- value.ToString()
+        | null ->
+            let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
+            if propInfo <> null then propInfo.SetValue(viewController, value)
+        | _ -> ()
         
     override this.bindCmd (viewController: IProgramHost) (elementName: string) (dispatch: 'msg -> unit) (msg: 'msg) =
-        failwith "TODO"
+        let element = getUiElement (viewController :?> Activity) elementName
+        match element with
+        | :? Button as uiControl -> uiControl.Click.Add(fun _ -> dispatch msg)
+        | _ -> ()
+        ()
         
     override this.bindValueChanged (viewController: IProgramHost) (model: 'model) (elementName: string) (dispatch: 'msg -> unit) (setter: Setter<'model,'msg>) =
-        failwith "TODO"
+        let element = getUiElement (viewController :?> Activity) elementName
+        match element with
+        | :? EditText as textField ->
+            textField.AfterTextChanged.Add(fun _ -> dispatch <| setter textField.Text model)
+//        | :? UISlider as slider ->
+//            slider.AddTarget(EventHandler (fun sender event ->
+//                let value = int(slider.Value + 0.5f)
+//                dispatch <| setter value model)
+//            , UIControlEvent.ValueChanged)
+        | _ -> ()
