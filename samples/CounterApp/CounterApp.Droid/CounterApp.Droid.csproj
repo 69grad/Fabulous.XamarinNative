@@ -72,9 +72,6 @@
     <AndroidResource Include="Resources\layout\activity_main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\content_main.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
@@ -119,6 +116,10 @@
     <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative.Droid\Fabulous.XamarinNative.Droid.fsproj">
       <Project>{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}</Project>
       <Name>Fabulous.XamarinNative.Droid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CounterApp\CounterApp.fsproj">
+      <Project>{bc1048c4-dcfb-4b5e-bf71-f3ad131bd07f}</Project>
+      <Name>CounterApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
