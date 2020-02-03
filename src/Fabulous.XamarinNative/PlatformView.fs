@@ -109,6 +109,7 @@ and [<AbstractClass>] PlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> un
                 let value = getter other
                 let old = getter model
                 if value <> old then self.bind host bindingName value
+            | BindCmd(exec, _) -> ()
             | _ -> failwith "Not implemented yet"
 
         model <- other
