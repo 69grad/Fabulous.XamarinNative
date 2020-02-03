@@ -111,6 +111,16 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative.Droid\Fabulous.XamarinNative.Droid.fsproj">
+      <Project>{691032F5-DA5F-43FF-AC06-7841B8D3CFF5}</Project>
+      <Name>Fabulous.XamarinNative.Droid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj">
+      <Project>{CFF38367-B762-4807-8E8B-F70207D8BE3B}</Project>
+      <Name>Fabulous.XamarinNative</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.
