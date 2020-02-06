@@ -9,7 +9,9 @@ type DroidPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap:
 
     let getUiElement (viewController: Activity) (elementName: string) =
         let id = viewController.Resources.GetIdentifier(elementName, "id", viewController.PackageName)
-        viewController.FindViewById(id)
+        if id > 0 
+            then viewController.FindViewById(id)
+            else null
     
     override this.bind (viewController: IProgramHost) (elementName: string) (value: obj) =
         let element = getUiElement (viewController :?> Activity) elementName
