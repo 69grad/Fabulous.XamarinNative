@@ -7,11 +7,11 @@ namespace MultiPageApp.Droid
 {
     public class PeopleListViewHolder : RecyclerView.ViewHolder
     {
-        public TextView Text { get; }
+        public TextView NameTextView { get; }
 
         public PeopleListViewHolder(View itemView) : base(itemView)
         {
-            Text = itemView.FindViewById<TextView>(Android.Resource.Id.Text1);
+            NameTextView = itemView.FindViewById<TextView>(Android.Resource.Id.Text1);
         }
     }
 }

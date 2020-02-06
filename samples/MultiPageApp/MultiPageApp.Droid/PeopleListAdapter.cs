@@ -22,7 +22,7 @@ namespace MultiPageApp.Droid
                 return;
             }
 
-            peopleListViewHolder.Text.Text = $"{_people[position].FirstName} {_people[position].LastName}";
+            peopleListViewHolder.NameTextView.Text = $"{_people[position].FirstName} {_people[position].LastName}";
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
