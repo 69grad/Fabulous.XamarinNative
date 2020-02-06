@@ -21,7 +21,6 @@ namespace MultiPageApp.Droid
                 _people = value;
 
                 _recyclerView.SetAdapter(new PeopleListAdapter(_people));
-                _recyclerView.SetLayoutManager(new LinearLayoutManager(this));
                 _recyclerView.GetAdapter().NotifyDataSetChanged();
             }
         }
@@ -32,6 +31,8 @@ namespace MultiPageApp.Droid
 
             SetContentView(Resource.Layout.activity_main);
             _recyclerView = FindViewById<RecyclerView>(Resource.Id.List);
+            _recyclerView.SetLayoutManager(new LinearLayoutManager(this));
+            _recyclerView.AddItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.Vertical));
 
             var toolBar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolBar);
@@ -41,7 +42,7 @@ namespace MultiPageApp.Droid
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            var item = menu.Add(0, 0, 0, "Add");
+            var item = menu.Add("Add");
             item.SetShowAsAction(ShowAsAction.Always);
 
             return base.OnCreateOptionsMenu(menu);
