@@ -33,7 +33,7 @@ module CounterProgram =
             | Reset -> init()
             | SetStep n -> { model with Step = n }, Cmd.none
             | SetName n -> { model with Name = n }, Cmd.none
-
+            
         let view() =
             [ "_incrementButton" |> Binding.msg Increment
               "_decrementButton" |> Binding.msg Decrement

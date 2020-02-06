@@ -30,8 +30,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+    <SeekBar
+            android:id="@+id/_stepSizeSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:min="0" />
+
     <TextView
             android:id="@+id/_stepSizeValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/_incrementButton"
+            android:text="Increment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <Button
+            android:id="@+id/_decrementButton"
+            android:text="Decrement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -48,12 +67,8 @@
             android:layout_height="wrap_content" tools:ignore="HardcodedText" android:inputType="text"/>
 
     <Button
-            android:id="@+id/_incrementButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    <Button
-            android:id="@+id/_decrementButton"
+            android:id="@+id/_resetButton"
+            android:text="Reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 </LinearLayout>

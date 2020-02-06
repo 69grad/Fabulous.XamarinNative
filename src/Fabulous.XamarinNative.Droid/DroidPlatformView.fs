@@ -16,6 +16,7 @@ type DroidPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap:
         match element with
         | :? FabulousEditText as label -> label.Text <- value.ToString()
         | :? TextView as label -> label.Text <- value.ToString()
+        | :? SeekBar as slider -> slider.SetProgress(value :?> int , false)
         | null ->
             let propInfo = viewController.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
             if propInfo <> null then propInfo.SetValue(viewController, value)
@@ -33,9 +34,8 @@ type DroidPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap:
         match element with
         | :? FabulousEditText as textField ->
             textField.TextDidChange.Add(fun _ -> dispatch <| setter textField.Text model)
-//        | :? UISlider as slider ->
-//            slider.AddTarget(EventHandler (fun sender event ->
-//                let value = int(slider.Value + 0.5f)
-//                dispatch <| setter value model)
-//            , UIControlEvent.ValueChanged)
+        | :? SeekBar as slider ->
+            slider.ProgressChanged.Add(fun eventArgs -> 
+                let value = eventArgs.Progress
+                dispatch <| setter value model)
         | _ -> ()
