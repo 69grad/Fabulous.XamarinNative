@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -22,26 +21,21 @@
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <PlatformTarget>
-    </PlatformTarget>
-    <JavaMaximumHeapSize>
-    </JavaMaximumHeapSize>
+    <PlatformTarget></PlatformTarget>
+    <JavaMaximumHeapSize></JavaMaximumHeapSize>
     <AndroidUseAapt2>false</AndroidUseAapt2>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <GenerateTailCalls>true</GenerateTailCalls>
-    <PlatformTarget>
-    </PlatformTarget>
-    <JavaMaximumHeapSize>
-    </JavaMaximumHeapSize>
+    <PlatformTarget></PlatformTarget>
+    <JavaMaximumHeapSize></JavaMaximumHeapSize>
     <AndroidUseAapt2>false</AndroidUseAapt2>
   </PropertyGroup>
   <ItemGroup>
@@ -52,17 +46,16 @@
     <Reference Include="mscorlib" />
     <Reference Include="Mono.Android" />
     <Reference Include="FSharp.Core">
-      <HintPath>..\..\samples\packages\FSharp.Core.4.7.0\lib\netstandard2.0\FSharp.Core.dll</HintPath>
+      <HintPath>..\..\samples\packages\FSharp.Core.4.5.2\lib\netstandard1.6\FSharp.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <Compile Include="Properties\AssemblyInfo.fs" />
+    <Compile Include="FabulousEditText.fs" />
     <Compile Include="DroidPlatformView.fs" />
     <Compile Include="FabulousSetup.fs" />
     <Compile Include="FabulousActivity.fs" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="packages.config" />
     <ProjectReference Include="..\Fabulous.XamarinNative\Fabulous.XamarinNative.fsproj">
       <Project>{cff38367-b762-4807-8e8b-f70207d8be3b}</Project>
       <Name>Fabulous.XamarinNative</Name>
