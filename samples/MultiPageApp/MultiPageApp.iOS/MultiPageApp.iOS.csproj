@@ -143,7 +143,7 @@
       <Name>Fabulous.XamarinNative</Name>
     </ProjectReference>
     <ProjectReference Include="..\MultiPageApp\MultiPageApp.fsproj">
-      <Project>{22f7443c-9ac1-4d89-ab7b-5910b9fe8696}</Project>
+      <Project>{907E76C0-D441-4D60-B390-0D0EDBB66034}</Project>
       <Name>MultiPageApp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\Fabulous.XamarinNative.iOS\Fabulous.XamarinNative.iOS.fsproj">

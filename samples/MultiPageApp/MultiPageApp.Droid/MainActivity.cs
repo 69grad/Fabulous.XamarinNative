@@ -1,24 +1,38 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Support.V7.App;
+using Android.Support.V7.Widget;
 using Fabulous.XamarinNative;
 
 namespace MultiPageApp.Droid
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : FabulousActivity<PeopleListProgram.Program>
     {
+        private RecyclerView _recyclerView;
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        private Person[] _people;
+
+        public Person[] People
         {
-            base.OnCreate(savedInstanceState);
+            get => _people;
+            set
+            {
+                _people = value;
+
+                _recyclerView.SetAdapter(new PeopleListAdapter(_people));
+                _recyclerView.SetLayoutManager(new LinearLayoutManager(this));
+                _recyclerView.GetAdapter().NotifyDataSetChanged();
+            }
+        }
+
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            FabulousSetup.initialize();
 
             SetContentView(Resource.Layout.activity_main);
+            _recyclerView = FindViewById<RecyclerView>(Resource.Id.List);
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-            
-            FabulousSetup.initialize();
+            base.OnCreate(savedInstanceState);
         }
     }
 }
