@@ -20,6 +20,7 @@ type IosPlatformView<'model, 'msg>(m: 'model, dispatch: 'msg -> unit, propMap: V
         match element with
         | :? UILabel as label -> label.Text <- value.ToString()
         | :? UITextField as textField -> textField.Text <- value.ToString()
+        | :? UISlider as slider -> slider.SetValue(float32 (value :?> int), false) 
         | null ->
             let propInfo = host.GetType().GetProperty(elementName, BindingFlags.Public ||| BindingFlags.Instance)
             propInfo.SetValue(host, value)
