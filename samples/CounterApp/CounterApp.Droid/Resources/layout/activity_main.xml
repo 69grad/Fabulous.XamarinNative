@@ -35,13 +35,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    <EditText
+    <fabulous.xamarinnative.FabulousEditText
             android:id="@+id/_twoWayFirstTextField"
             android:hint="Hier eingeben"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" tools:ignore="HardcodedText" android:inputType="text"/>
 
-    <EditText
+    <fabulous.xamarinnative.FabulousEditText
             android:id="@+id/_twoWaySecondTextField"
             android:hint="Hier eingeben"
             android:layout_width="wrap_content"
