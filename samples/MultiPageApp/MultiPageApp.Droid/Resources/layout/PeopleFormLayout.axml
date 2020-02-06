@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First name:" />
+
+    <fabulous.xamarinnative.FabulousEditText
+        android:id="@+id/_firstnameTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" tools:ignore="HardcodedText" android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last name:" />
+
+    <fabulous.xamarinnative.FabulousEditText
+        android:id="@+id/_lastnameTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" tools:ignore="HardcodedText" android:inputType="text"/>
+
+    <Button
+        android:id="@+id/_saveButton"
+        android:text="Save"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

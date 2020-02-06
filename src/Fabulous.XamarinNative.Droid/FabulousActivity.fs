@@ -1,10 +1,11 @@
 ﻿namespace Fabulous.XamarinNative
 
 open Android.OS
+open Android.Support.V7.App
 open System
 
 type FabulousActivity<'t when 't: null>() =
-    inherit Android.App.Activity()
+    inherit AppCompatActivity()
     
     [<DefaultValue>] val mutable program: 't
 
